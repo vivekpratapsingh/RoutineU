@@ -13,6 +13,7 @@ import { IndexComponent } from '../pages/index/index';
 import { HomeComponent } from '../pages/home/home';
 import { ProfileComponent } from '../pages/profile/profile';
 import { SearchComponent } from '../pages/search/search';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   declarations: [
