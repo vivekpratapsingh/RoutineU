@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Chart } from 'chart.js';
-import { UserPostComponent } from './user-posts/user.posts';
+import { UserPostComponent } from '../post/user-posts/user.posts';
 
 @Component({
     templateUrl: 'profile.html',

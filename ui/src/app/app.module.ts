@@ -14,7 +14,9 @@ import { HomeComponent } from '../pages/home/home';
 import { ProfileComponent } from '../pages/profile/profile';
 import { SearchComponent } from '../pages/search/search';
 import { UserService } from '../services/user.service';
-import { UserPostComponent } from '../pages/profile/user-posts/user.posts';
+import { UserPostComponent } from '../pages/post/user-posts/user.posts';
+import { PostCommentComponent } from '../pages/post/post-comments/post.comment';
+import { PostLikeComponent } from '../pages/post/post-likes/post.like';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { UserPostComponent } from '../pages/profile/user-posts/user.posts';
     HomeComponent,
     ProfileComponent,
     SearchComponent,
-    UserPostComponent
+    UserPostComponent,
+    PostCommentComponent,
+    PostLikeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { UserPostComponent } from '../pages/profile/user-posts/user.posts';
     HomeComponent,
     ProfileComponent,
     SearchComponent,
-    UserPostComponent
+    UserPostComponent,
+    PostCommentComponent,
+    PostLikeComponent
   ],
   providers: [
     StatusBar,
