@@ -14,6 +14,7 @@ import { HomeComponent } from '../pages/home/home';
 import { ProfileComponent } from '../pages/profile/profile';
 import { SearchComponent } from '../pages/search/search';
 import { UserService } from '../services/user.service';
+import { UserPostComponent } from '../pages/profile/user-posts/user.posts';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserService } from '../services/user.service';
     IndexComponent,
     HomeComponent,
     ProfileComponent,
-    SearchComponent
+    SearchComponent,
+    UserPostComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { UserService } from '../services/user.service';
     MyApp,
     HomeComponent,
     ProfileComponent,
-    SearchComponent
+    SearchComponent,
+    UserPostComponent
   ],
   providers: [
     StatusBar,
