@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { UserPostComponent } from '../post/user-posts/user.posts';
+import { UserConnectionComponent } from '../user-connections/user.connections';
+import { UserTagComponent } from '../user-tags/user.tags';
+import { AppSettingsHomeComponent } from '../settings/settings';
 
 @Component({
     templateUrl: 'profile.html',
@@ -57,5 +60,20 @@ export class ProfileComponent {
     //Open posts
     openPosts(){
         this.navCtrl.push(UserPostComponent);
+    }
+
+    //show connections
+    openConnections(){
+        this.navCtrl.push(UserConnectionComponent)
+    }
+
+    //show tags
+    openTags(){
+        this.navCtrl.push(UserTagComponent);
+    }
+
+    //Open settings home page
+    openSettings(){
+        this.navCtrl.push(AppSettingsHomeComponent,{userId : "1"});
     }
 }

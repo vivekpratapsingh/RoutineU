@@ -8,6 +8,7 @@
 
     <!-- Profile header-->
     <ion-card style="text-align:center" padding>
+        <ion-icon ios="ios-settings" md="md-settings" style="float:right;font-size:2.2em" (click)="openSettings()"></ion-icon>
         <img class="home-profile-img" src="../../assets/imgs/user_default.jpg" />
         <div>Vivek Pratap Singh</div>
         <div>New Delhi,India</div>
@@ -51,23 +52,25 @@
                 <ion-col>Your Connections</ion-col>
             </ion-row>
             <ion-row>
-                <ion-col style="border-right:thin solid cornflowerblue">
-                    <ion-col (click)="openPosts()">
+                <ion-col (click)="openPosts()" style="border-right:thin solid cornflowerblue">
+                    <ion-col >
                         <ion-icon ios="ios-create" md="md-create"></ion-icon>
                     </ion-col>
-                    <ion-col>12</ion-col>
+                    <ion-col>
+                        <ion-badge>20</ion-badge>
+                    </ion-col>
                 </ion-col>
-                <ion-col style="border-right:thin solid cornflowerblue">
+                <ion-col (click)="openConnections()" style="border-right:thin solid cornflowerblue">
                     <ion-col>
                         <ion-icon ios="ios-people" md="md-people"></ion-icon>
                     </ion-col>
-                    <ion-col>300</ion-col>
+                    <ion-col><ion-badge>300</ion-badge></ion-col>
                 </ion-col>
-                <ion-col>
+                <ion-col (click)="openTags()">
                     <ion-col>
                         <ion-icon ios="ios-bookmark" md="md-bookmark"></ion-icon>
                     </ion-col>
-                    <ion-col>20</ion-col>
+                    <ion-col><ion-badge>20</ion-badge></ion-col>
                 </ion-col>
             </ion-row>
         </ion-card-content>

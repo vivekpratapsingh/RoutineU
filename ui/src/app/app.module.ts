@@ -17,6 +17,9 @@ import { UserService } from '../services/user.service';
 import { UserPostComponent } from '../pages/post/user-posts/user.posts';
 import { PostCommentComponent } from '../pages/post/post-comments/post.comment';
 import { PostLikeComponent } from '../pages/post/post-likes/post.like';
+import { UserTagComponent } from '../pages/user-tags/user.tags';
+import { UserConnectionComponent } from '../pages/user-connections/user.connections';
+import { AppSettingsModule } from './app-settings.module';
 
 @NgModule({
   declarations: [
@@ -28,12 +31,15 @@ import { PostLikeComponent } from '../pages/post/post-likes/post.like';
     SearchComponent,
     UserPostComponent,
     PostCommentComponent,
-    PostLikeComponent
+    PostLikeComponent,
+    UserTagComponent,
+    UserConnectionComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AppRoutingModule
+    AppRoutingModule,
+    AppSettingsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,7 +49,9 @@ import { PostLikeComponent } from '../pages/post/post-likes/post.like';
     SearchComponent,
     UserPostComponent,
     PostCommentComponent,
-    PostLikeComponent
+    PostLikeComponent,
+    UserTagComponent,
+    UserConnectionComponent
   ],
   providers: [
     StatusBar,

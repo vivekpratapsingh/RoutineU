@@ -26,4 +26,8 @@ export class UserPostComponent{
         this.navCtrl.push(PostCommentComponent,{postId : id});
     }
 
+    ionViewDidEnter() {
+        (<any>document.getElementsByClassName("tabbar show-tabbar")[0]).style.display = "flex";
+    }
+
 }
