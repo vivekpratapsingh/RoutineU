@@ -3,6 +3,40 @@
         <ion-title>Home</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding>
-    <h2>Home</h2>
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-select multiple="false" cancelText="Nah" okText="Okay!">
+                <ion-option value="bacon" selected="true">Calories remaining</ion-option>
+            </ion-select>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-row style="text-align:center">
+                <ion-col col-2>2590</ion-col>
+                <ion-col col-1>-</ion-col>
+                <ion-col col-2>200</ion-col>
+                <ion-col col-1>+</ion-col>
+                <ion-col col-2>0</ion-col>
+                <ion-col col-1>=</ion-col>
+                <ion-col col-3>1390</ion-col>
+            </ion-row>
+            <ion-row style="text-align:center">
+                <ion-col col-2>Goal</ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-2>Food</ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-2>Exercise</ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-3>Remaining</ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="img/marty-avatar.png">
+            </ion-avatar>
+            <ion-label>Say something....</ion-label>
+        </ion-item>
+    </ion-card>
 </ion-content>

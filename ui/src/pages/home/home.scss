@@ -1,0 +1,16 @@
+ion-app.ios [padding] .scroll-content {
+    padding: 0px;
+}
+.card-ios {
+width: 100%;
+margin:0px;
+font-size: 1.4rem;
+margin-top:2%;
+}
+.card-header-ios{
+    padding: 0px;
+}
+
+.card-ios + ion-card {
+    margin-top: 2%;
+}
