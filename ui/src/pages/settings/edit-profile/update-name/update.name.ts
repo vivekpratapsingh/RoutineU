@@ -35,5 +35,6 @@ export class UpdateNameComponent{
         
         this.user.name = this.name;
         console.log(this.user.name);
+        this.viewCtrl.dismiss();
     }
 }
