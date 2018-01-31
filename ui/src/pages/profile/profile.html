@@ -1,5 +1,98 @@
 <ion-header>
-        <ion-navbar>
-            <ion-title>Profile</ion-title>
-        </ion-navbar>
-    </ion-header>
+    <ion-navbar>
+        <ion-title>Profile</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- Profile header-->
+    <ion-card style="text-align:center" padding>
+        <ion-icon ios="ios-settings" md="md-settings" style="float:right;font-size:2.2em" (click)="openSettings()"></ion-icon>
+        <img class="home-profile-img" src="../../assets/imgs/user_default.jpg" />
+        <div>Vivek Pratap Singh</div>
+        <div>New Delhi,India</div>
+    </ion-card>
+
+    <!-- Profile Dashboard-->
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col>Your Dashboard</ion-col>
+                <ion-col>
+                    <ion-select multiple="false" cancelText="Cancel" okText="Okay!" style="float:right;max-width:100%">
+                        <ion-option value="Today" selected="true">Today</ion-option>
+                        <ion-option value="This Week">This Week</ion-option>
+                        <ion-option value="This Month">This Month</ion-option>
+                        <ion-option value="This Year">This Year</ion-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col style="border-right:thin solid cornflowerblue">
+                    <ion-row>Exercise Done</ion-row>
+                    <ion-row>5/6</ion-row>
+                </ion-col>
+                <ion-col style="border-right:thin solid cornflowerblue">
+                    <ion-row>Weight Loose</ion-row>
+                    <ion-row>0.5 lbs</ion-row>
+                </ion-col>
+                <ion-col>
+                    <ion-row>Calories burned</ion-row>
+                    <ion-row>300 KCal</ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Profile social connections-->
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col>Your Connections</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col (click)="openPosts()" style="border-right:thin solid cornflowerblue">
+                    <ion-col >
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <ion-badge>20</ion-badge>
+                    </ion-col>
+                </ion-col>
+                <ion-col (click)="openConnections()" style="border-right:thin solid cornflowerblue">
+                    <ion-col>
+                        <ion-icon ios="ios-people" md="md-people"></ion-icon>
+                    </ion-col>
+                    <ion-col><ion-badge>300</ion-badge></ion-col>
+                </ion-col>
+                <ion-col (click)="openTags()">
+                    <ion-col>
+                        <ion-icon ios="ios-bookmark" md="md-bookmark"></ion-icon>
+                    </ion-col>
+                    <ion-col><ion-badge>20</ion-badge></ion-col>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Calorie consumption chart -->
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col>Calorie Consumption Chart</ion-col>
+                <ion-col>
+                    <ion-select multiple="false" cancelText="Cancel" okText="Okay!" style="float:right;max-width:100%">
+                        <ion-option value="This Week" selected="true">This Week</ion-option>
+                        <ion-option value="Last 10 Days">Last 10 Days</ion-option>
+                        <ion-option value="Last 2 Weeks">Last 2 Weeks</ion-option>
+                        <ion-option value="Last 1 month">Last 1 month</ion-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <canvas #barCanvas></canvas>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
