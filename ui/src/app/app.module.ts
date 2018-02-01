@@ -20,6 +20,7 @@ import { PostLikeComponent } from '../pages/post/post-likes/post.like';
 import { UserTagComponent } from '../pages/user-tags/user.tags';
 import { UserConnectionComponent } from '../pages/user-connections/user.connections';
 import { AppSettingsModule } from './app-settings.module';
+import { UserDietComponent } from '../pages/diet/user.diet';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AppSettingsModule } from './app-settings.module';
     PostCommentComponent,
     PostLikeComponent,
     UserTagComponent,
-    UserConnectionComponent
+    UserConnectionComponent,
+    UserDietComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { AppSettingsModule } from './app-settings.module';
     PostCommentComponent,
     PostLikeComponent,
     UserTagComponent,
-    UserConnectionComponent
+    UserConnectionComponent,
+    UserDietComponent
   ],
   providers: [
     StatusBar,

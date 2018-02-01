@@ -5,6 +5,7 @@ import { UserPostComponent } from '../post/user-posts/user.posts';
 import { UserConnectionComponent } from '../user-connections/user.connections';
 import { UserTagComponent } from '../user-tags/user.tags';
 import { AppSettingsHomeComponent } from '../settings/settings';
+import { UserDietComponent } from '../diet/user.diet';
 
 @Component({
     templateUrl: 'profile.html',
@@ -75,5 +76,10 @@ export class ProfileComponent {
     //Open settings home page
     openSettings(){
         this.navCtrl.push(AppSettingsHomeComponent,{userId : "1"});
+    }
+
+    //open user diet
+    checkDiet(){
+        this.navCtrl.push(UserDietComponent,{'userId':'1','name':'Vivek Pratap Singh'});
     }
 }
