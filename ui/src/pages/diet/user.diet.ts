@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {NavParams} from 'ionic-angular';
+import {NavParams,NavController} from 'ionic-angular';
+import { MealDetailComponent } from '../meal/meal-detail/meal.detail';
 
 @Component({
     templateUrl : 'user.diet.html',
@@ -12,7 +13,7 @@ export class UserDietComponent{
     daycount : number;
     backward : boolean;
     forward : boolean;
-    constructor(private navParams : NavParams){
+    constructor(private navParams : NavParams,private navCtrl : NavController){
         this.userId = this.navParams.data.userId;
         this.name = this.navParams.data.name;
         this.daycount = 1;
@@ -57,5 +58,9 @@ export class UserDietComponent{
 
     }
 
+    mealDetail(){
+        console.log('inside meal detail');
+        this.navCtrl.push(MealDetailComponent,{'mealId' : '1'});
+    }
     
 }

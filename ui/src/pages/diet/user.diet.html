@@ -4,6 +4,8 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+
+    <!--chnage day-->
     <ion-card style="margin-top:0%">
         <ion-row>
             <ion-col style="padding:0px">
@@ -20,5 +22,61 @@
                 </button>
             </ion-col>
         </ion-row>
+    </ion-card>
+
+    <!--diet chart-->
+    <ion-card>
+        <ion-list>
+            <ion-item-group>
+                <ion-item-divider style="background-color: #2b72e5;color: white;">
+                    <div style="float:left">
+                        Breakfast
+                    </div>
+                    <div style="float:right">
+                        <ion-badge>330 cal</ion-badge>
+                        <ion-icon ios="ios-stats" md="md-stats" (click)="mealDetail()"></ion-icon>
+                    </div>
+                </ion-item-divider>
+                <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                    <div style="float:left">
+                        <ion-row>
+                            <h3>Food Item</h3>
+                        </ion-row>
+                        <ion-row>
+                            <p>100 gms, 110 cal</p>
+                        </ion-row>
+                    </div>
+                    <div style="float:right">
+                        110
+                    </div>
+                </ion-item>
+                <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                    <div style="float:left">
+                        <ion-row>
+                            <h3>Food Item</h3>
+                        </ion-row>
+                        <ion-row>
+                            <p>100 gms, 110 cal</p>
+                        </ion-row>
+                    </div>
+                    <div style="float:right">
+                        110
+                    </div>
+                </ion-item>
+                <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                    <div style="float:left">
+                        <ion-row>
+                            <h3>Food Item</h3>
+                        </ion-row>
+                        <ion-row>
+                            <p>100 gms, 110 cal</p>
+                        </ion-row>
+                    </div>
+                    <div style="float:right">
+                        110
+                    </div>
+                </ion-item>
+            </ion-item-group>
+        </ion-list>
     </ion-card>
 </ion-content>
