@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
+import {HttpModule} from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { MyApp } from './app.component';
 
 
@@ -28,6 +30,7 @@ import { DiaryComponent } from '../pages/diary/diary';
 import { FoodSearchComponent } from '../pages/food/food-search/food.search';
 import { WaterAddComponent } from '../pages/food/water-add/water.add';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -53,7 +56,11 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AppRoutingModule,
+<<<<<<< HEAD
+    HttpModule
+=======
     AppSettingsModule
+>>>>>>> 66f9fa3f547854310f3bb0efb17cace61a8e6709
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -77,6 +84,7 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
   providers: [
     StatusBar,
     SplashScreen,
+    UserService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
