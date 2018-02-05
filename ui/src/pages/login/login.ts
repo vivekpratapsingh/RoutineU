@@ -9,18 +9,19 @@ import {UserService} from '../../services/user.service';
 })
 export class LoginComponent{
 
-    // constructor(private router : Router){
-    // }
+    constructor(private router : Router,public userService : UserService){
+    }
 
-    // ngOnInit(){
-    //     console.log('inside login');
-    // }
+    ngOnInit(){
+        console.log('inside login');
+    }
 
-    // fbLogin(){
-    //     // this.userService.fbLogin().then(() => {
-    //     //     console.log('User has been logged in');
-    //     //     //this.router.navigate(['/login']);
-    //     //   }); 
-    // }
+    fbLogin(){
+        console.log('fb login clicked')
+        this.userService.fbLogin().then(() => {
+            console.log('User has been logged in');
+            //this.router.navigate(['/login']);
+          }); 
+    }
 
 }

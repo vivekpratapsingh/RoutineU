@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
+import {HttpModule} from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { MyApp } from './app.component';
 
 
@@ -15,6 +17,7 @@ import { ProfileComponent } from '../pages/profile/profile';
 import { SearchComponent } from '../pages/search/search';
 import { UserService } from '../services/user.service';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,7 +30,8 @@ import { UserService } from '../services/user.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,6 +43,7 @@ import { UserService } from '../services/user.service';
   providers: [
     StatusBar,
     SplashScreen,
+    UserService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
