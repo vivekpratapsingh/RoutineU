@@ -24,6 +24,9 @@ import { UserDietComponent } from '../pages/diet/user.diet';
 import { MealDetailComponent } from '../pages/meal/meal-detail/meal.detail';
 import { AddFoodComponent } from '../pages/food/food-add/food.add';
 import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quantity/food-add.quantity';
+import { DiaryComponent } from '../pages/diary/diary';
+import { FoodSearchComponent } from '../pages/food/food-search/food.search';
+import { WaterAddComponent } from '../pages/food/water-add/water.add';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quanti
     UserDietComponent,
     MealDetailComponent,
     AddFoodComponent,
-    AddFoodQuantityComponent
+    AddFoodQuantityComponent,
+    DiaryComponent,
+    FoodSearchComponent,
+    WaterAddComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +69,10 @@ import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quanti
     UserDietComponent,
     MealDetailComponent,
     AddFoodComponent,
-    AddFoodQuantityComponent
+    AddFoodQuantityComponent,
+    DiaryComponent,
+    FoodSearchComponent,
+    WaterAddComponent
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavParams,PopoverController} from 'ionic-angular';
+import {NavParams,PopoverController,NavController} from 'ionic-angular';
 import { AddFoodQuantityComponent } from './food-add-quantity/food-add.quantity';
 
 @Component({
@@ -10,14 +10,26 @@ export class AddFoodComponent{
     food : any;
     foodId : any;
     nutritionDetail : any;
-    constructor(private popoverCtrl : PopoverController,private navParams : NavParams){
-        this.foodId = this.navParams.data.foodId;
-        this.food = {
-            "foodId":this.foodId,
-            "servings" : '1',
-            "servingsize" : '1 gm'
-        };
+    previousPage : any;
+    title : string;
+    constructor(private popoverCtrl : PopoverController,private navParams : NavParams,private navCtrl : NavController){
+        // this.foodId = this.navParams.data.foodId;
+        // this.food = {
+        //     "foodId":this.foodId,
+        //     "servings" : '1',
+        //     "servingsize" : '1 gm'
+        // };
+        this.food = this.navParams.data.foodItem;
+        this.foodId = this.food.id;
         this.nutritionDetail = false;
+        this.previousPage = this.navCtrl.last();
+        console.log(this.previousPage.component.name);
+        if(this.previousPage.component.name == 'FoodSearchComponent'){
+            this.title = "Add Food";
+        }
+        else{
+            this.title = "Edit Entry";
+        }
     }
 
     updateQuantity(){

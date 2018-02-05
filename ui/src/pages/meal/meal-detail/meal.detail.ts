@@ -8,26 +8,35 @@ import { AddFoodComponent } from '../../food/food-add/food.add';
 })
 export class MealDetailComponent {
     mealId: any;
-    nutritionDetail : any;
+    nutritionDetail: any;
+    food: any;
 
     constructor(private navParams: NavParams, private navCtrl: NavController) {
         this.mealId = this.navParams.data.mealId;
         this.nutritionDetail = false;
+        this.food = {
+            "id": "11",
+            "name": "Item name",
+            "brand": "Item Brand",
+            "servings": "2",
+            "servingsize": "20 gm",
+            "calorie": "100 cal"
+        }
     }
 
-    showNutrition(option){
-        switch(option){
+    showNutrition(option) {
+        switch (option) {
             case 'enable':
                 this.nutritionDetail = true;
                 break;
             case 'disable':
                 this.nutritionDetail = false;
-                break;    
+                break;
         }
     }
 
-    openFoodItem(){
+    openFoodItem() {
         console.log('open food item clicked');
-        this.navCtrl.push(AddFoodComponent,{foodId : 1});
+        this.navCtrl.push(AddFoodComponent, { foodItem : this.food });
     }
 }
