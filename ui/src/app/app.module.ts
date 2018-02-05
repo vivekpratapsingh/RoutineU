@@ -56,11 +56,8 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AppRoutingModule,
-<<<<<<< HEAD
-    HttpModule
-=======
+    HttpModule,
     AppSettingsModule
->>>>>>> 66f9fa3f547854310f3bb0efb17cace61a8e6709
   ],
   bootstrap: [IonicApp],
   entryComponents: [

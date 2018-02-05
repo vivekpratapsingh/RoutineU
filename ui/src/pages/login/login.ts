@@ -20,7 +20,7 @@ export class LoginComponent{
         console.log('fb login clicked')
         this.userService.fbLogin().then(() => {
             console.log('User has been logged in');
-            //this.router.navigate(['/login']);
+            this.router.navigate(['/welcome']);
           }); 
     }
 
