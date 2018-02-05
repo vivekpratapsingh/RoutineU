@@ -20,6 +20,13 @@ import { PostLikeComponent } from '../pages/post/post-likes/post.like';
 import { UserTagComponent } from '../pages/user-tags/user.tags';
 import { UserConnectionComponent } from '../pages/user-connections/user.connections';
 import { AppSettingsModule } from './app-settings.module';
+import { UserDietComponent } from '../pages/diet/user.diet';
+import { MealDetailComponent } from '../pages/meal/meal-detail/meal.detail';
+import { AddFoodComponent } from '../pages/food/food-add/food.add';
+import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quantity/food-add.quantity';
+import { DiaryComponent } from '../pages/diary/diary';
+import { FoodSearchComponent } from '../pages/food/food-search/food.search';
+import { WaterAddComponent } from '../pages/food/water-add/water.add';
 
 @NgModule({
   declarations: [
@@ -33,7 +40,14 @@ import { AppSettingsModule } from './app-settings.module';
     PostCommentComponent,
     PostLikeComponent,
     UserTagComponent,
-    UserConnectionComponent
+    UserConnectionComponent,
+    UserDietComponent,
+    MealDetailComponent,
+    AddFoodComponent,
+    AddFoodQuantityComponent,
+    DiaryComponent,
+    FoodSearchComponent,
+    WaterAddComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +65,14 @@ import { AppSettingsModule } from './app-settings.module';
     PostCommentComponent,
     PostLikeComponent,
     UserTagComponent,
-    UserConnectionComponent
+    UserConnectionComponent,
+    UserDietComponent,
+    MealDetailComponent,
+    AddFoodComponent,
+    AddFoodQuantityComponent,
+    DiaryComponent,
+    FoodSearchComponent,
+    WaterAddComponent
   ],
   providers: [
     StatusBar,
