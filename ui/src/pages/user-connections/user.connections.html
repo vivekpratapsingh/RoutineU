@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Followed</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-content>
+    <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="follow">
+            <ion-segment-button value="followers">
+                Followers
+            </ion-segment-button>
+            <ion-segment-button value="followed">
+                Followed
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+        <!-- <ion-list>
+          <ion-item *ngFor="let item of items">
+            {{ item }}
+          </ion-item>
+        </ion-list> -->
+    <div [ngSwitch]="follow">
+        <ion-list *ngSwitchCase="'followers'">
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-puppy-1.jpg">
+                </ion-thumbnail>
+                <h2>Ruby</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-puppy-2.jpg">
+                </ion-thumbnail>
+                <h2>Oscar</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-puppy-4.jpg">
+                </ion-thumbnail>
+                <h2>Zoey</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-puppy-3.jpg">
+                </ion-thumbnail>
+                <h2>Otto</h2>
+            </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'followed'">
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-kitten-1.jpg">
+                </ion-thumbnail>
+                <h2>Luna</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-kitten-3.jpg">
+                </ion-thumbnail>
+                <h2>Milo</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-kitten-4.jpg">
+                </ion-thumbnail>
+                <h2>Bandit</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img src="assets/img/thumbnail-kitten-2.jpg">
+                </ion-thumbnail>
+                <h2>Nala</h2>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
