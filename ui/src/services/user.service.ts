@@ -2,25 +2,25 @@ import { Injectable } from '@angular/core';
 import { Http,RequestOptions,Headers } from '@angular/http';
 
 
-
+declare var FB: any;
 
 @Injectable()
 export class UserService {
 
     constructor(public http: Http) {
-        FB.init({
-            appId: '1965211123733241',
-            status: false, // the SDK will attempt to get info about the current user immediately after init
-            cookie: false,  // enable cookies to allow the server to access the session
-            xfbml: false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
-            version: 'v2.11' // use graph api version 2.5
-        });
+        // FB.init({
+        //     appId: '1965211123733241',
+        //     status: false, // the SDK will attempt to get info about the current user immediately after init
+        //     cookie: false,  // enable cookies to allow the server to access the session
+        //     xfbml: false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
+        //     version: 'v2.11' // use graph api version 2.5
+        // });
     }
 
     fbLogin() {
         return new Promise((resolve, reject) => {
             FB.login(result => {
-                //console.log(result.authResponse);
+                console.log(result.authResponse.userID);
                 if (result.authResponse) {
                     return this.http.post(`http://localhost:3000/auth/facebook`, { access_token: result.authResponse.accessToken })
                         .toPromise()
@@ -31,12 +31,16 @@ export class UserService {
                                 localStorage.setItem('id_token', token);
                             }
                             resolve(response.json());
+                            console.log(result.authResponse.userID);
+                            FB.api('/'+result.authResponse.userID,'GET',{fields : ['timezone','picture','birthday','age_range','email','gender','first_name','middle_name','last_name','location']},function(res){
+                                console.log(JSON.stringify(res));
+                            });
                         })
                         .catch(() => console.log(reject()) );
                 } else {
                     reject();
                 }
-            }, { scope: 'public_profile,email' })
+            }, { scope: 'public_profile,email,user_birthday' })
         });
     }
 

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
-    <base href="/">
+  <base href="/">
   <meta charset="UTF-8">
   <title>Ionic App</title>
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -18,7 +19,8 @@
 
   <!-- cordova.js required for cordova apps (remove if not needed) -->
   <script src="cordova.js"></script>
-  <script src="//connect.facebook.net/en_US/sdk.js"></script>
+  <!-- <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+  
 
   <!-- un-comment this code to enable service worker
   <script>
@@ -32,11 +34,32 @@
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1965211123733241',
+        autoLogAppEvents: true,
+        xfbml: true,
+        status: false, // the SDK will attempt to get info about the current user immediately after init
+        cookie: false,  // enable cookies to allow the server to access the session
+        xfbml: false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
+        version: 'v2.11'
+      });
+    };
 
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 
@@ -48,5 +71,6 @@
   <script src="build/main.js"></script>
 
 </body>
-<script src="//connect.facebook.net/en_US/sdk.js"></script>
+<!-- <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+
 </html>

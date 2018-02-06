@@ -11,14 +11,14 @@ export class AnonymousGuard implements CanActivate {
         return this.checkLogin();
     }
 
-    checkLogin(): Promise<boolean> {
+    checkLogin(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.userService.isLoggedIn().then(() => {
                 this.router.navigate(['/welcome']);
-                reject(false);
+                reject('Rejected');
             }).catch(() => {
                 resolve(true);
-            });
-        });
+            })
+        }).catch((error) =>{console.log(error);});
     }
 }

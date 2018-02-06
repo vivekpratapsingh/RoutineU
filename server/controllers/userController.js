@@ -12,6 +12,10 @@ exports.get_current_user = function(req,res,next){
     });
 }
 
+exports.update_user_detail = function(req,res,next){
+    
+}
+
 exports.get_one = function(req,res,next){
     var user = req.user.toObject();
     delete user['facebookProvider'];
