@@ -17,6 +17,7 @@ export class WaterAddComponent{
     }
 
     addAmount(amount){
+        console.log(amount);
         this.water = amount;
     }
 }

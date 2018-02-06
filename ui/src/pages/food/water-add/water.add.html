@@ -16,13 +16,13 @@
         <ion-col></ion-col>
     </ion-row>
     <ion-row style="justify-content:center">
-        <button ion-button color="light" click="addAmount('100')">
+        <button ion-button color="light" (click)="addAmount('100')">
             <ion-icon name="add"></ion-icon> 100 ml
         </button>
-        <button ion-button color="light" click="addAmount('300')">
+        <button ion-button color="light" (click)="addAmount('300')">
             <ion-icon name="add"></ion-icon> 300 ml
         </button>
-        <button ion-button color="light" click="addAmount('3000')">
+        <button ion-button color="light" (click)="addAmount('3000')">
             <ion-icon name="add"></ion-icon> 3000 ml
         </button>
     </ion-row>
