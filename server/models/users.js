@@ -3,9 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    first_name: { type: String },
-    middle_name: { type: String },
-    last_name: { type: String },
+    name: {
+        first_name: { type: String },
+        middle_name: { type: String },
+        last_name: { type: String },
+    },
     birthday: { type: Date },
     gender: { type: String },
     email: {
@@ -21,9 +23,22 @@ var UserSchema = new Schema({
         select: false
     },
     timezone: { type: Number },
-    picture: { type: String },
-    creation_date : {type:Date,default : Date.now()}
+    picture: { type: String }
+}, { timestamps: { createdAt: 'creation_date', updatedAt: 'updated_date' } });
+
+UserSchema.virtual('full_name').get(function () {
+    return this.name.first_name + this.name.middle_name + this.name.last_name;
 });
+
+UserSchema.virtual('age').get(function(){
+    let today = new Date();
+    let a  = this.birthday;
+    return ((today.getTime() - a.getTime())/31536000000).toPrecision(2);
+})
+
+UserSchema.virtual('url').get(function(){
+    return '/users/' + this._id;
+})
 
 module.exports = mongoose.model('User', UserSchema);
 

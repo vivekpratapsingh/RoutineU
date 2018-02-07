@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { UserPostComponent } from '../post/user-posts/user.posts';
@@ -6,17 +6,19 @@ import { UserConnectionComponent } from '../user-connections/user.connections';
 import { UserTagComponent } from '../user-tags/user.tags';
 import { AppSettingsHomeComponent } from '../settings/settings';
 import { UserDietComponent } from '../diet/user.diet';
+import { UserService } from '../../services/user.service';
 
 @Component({
     templateUrl: 'profile.html',
     styleUrls: ['/profile.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
     @ViewChild('barCanvas') barCanvas;
 
     barChart: any;
+    user : any;
 
-    constructor(public navCtrl: NavController) { }
+    constructor(public navCtrl: NavController,private userService : UserService) { }
 
     // Calorie consumtion chart
     ionViewDidLoad() {
@@ -56,8 +58,15 @@ export class ProfileComponent {
                 }
             }
         })
+
+        let userId = localStorage.getItem('id');
+        console.log(userId);
+        this.getUserDetailsById(userId);
     }
 
+    ngOnInit(){
+        
+    }
     //Open posts
     openPosts(){
         this.navCtrl.push(UserPostComponent);
@@ -81,5 +90,14 @@ export class ProfileComponent {
     //open user diet
     checkDiet(){
         this.navCtrl.push(UserDietComponent,{'userId':'1','name':'Vivek Pratap Singh'});
+    }
+
+    //get user detials by id
+    getUserDetailsById(id:any){
+        this.userService.getUserDetailsById(id).subscribe(user => {
+            
+            this.user = user;
+            console.log(this.user);
+        })
     }
 }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController,NavParams} from 'ionic-angular';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
     template : `<ion-list>
@@ -19,7 +20,7 @@ export class UpdateGenderComponent{
     user : any;
     gender : any;
 
-    constructor(public viewCtrl : ViewController,public navParams : NavParams){
+    constructor(public viewCtrl : ViewController,public navParams : NavParams,private userService : UserService){
         this.user = this.navParams.data.user;
         this.gender = this.user.gender;
     }
@@ -30,7 +31,6 @@ export class UpdateGenderComponent{
 
     saveGender(){
         console.log('save gender clicked');
-        
         this.user.gender = this.gender;
         console.log(this.user.gender);
         this.viewCtrl.dismiss();

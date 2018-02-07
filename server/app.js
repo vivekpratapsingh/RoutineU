@@ -6,7 +6,8 @@ var mongoose = require('mongoose');
     router = express.Router(),
     cors = require('cors'),
     bodyParser = require('body-parser'),
-    passportConfig = require('./common/passport');
+    passportConfig = require('./common/passport'),
+    userRoutes = require('./routes/user');
 
 //set up mongoose
 mongoose.connect('mongodb://127.0.0.1:27017');
@@ -113,6 +114,7 @@ router.route('/me')
     .get(authenticate, getCurrentUser, getOne);
 
 app.use('/auth', router);
+app.use('/users',userRoutes);
 const port = 3000;
 
 app.listen(port,function(){
