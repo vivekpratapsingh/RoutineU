@@ -10,6 +10,11 @@ import { UpdateGenderComponent } from '../pages/settings/edit-profile/update-gen
 import { UpdateTimeZoneComponent } from '../pages/settings/edit-profile/update-timezone/update.timezone';
 import { UpdateCountryComponent } from '../pages/settings/edit-profile/update-country/update.country';
 import { UpdateDOBComponent } from '../pages/settings/edit-profile/update-dob/update.dob';
+import { UpdateActivityLevelComponent } from '../pages/settings/goal-settings/update-activitylevel/update-activity.level';
+import { UpdateCurrentWeightComponent } from '../pages/settings/goal-settings/update-currentweight/update-current.weight';
+import { UpdateGoalWeightComponent } from '../pages/settings/goal-settings/update-goalweight/update-goal.weight';
+import { UpdateStartingWeightComponent } from '../pages/settings/goal-settings/update-startingweight/update-starting.weight';
+import { UpdateWeeklyGoalComponent } from '../pages/settings/goal-settings/update-weeklygoal/update-weekly.goal';
 
 @NgModule({
     declarations :[
@@ -22,7 +27,12 @@ import { UpdateDOBComponent } from '../pages/settings/edit-profile/update-dob/up
         UpdateGenderComponent,
         UpdateTimeZoneComponent,
         UpdateDOBComponent,
-        UpdateCountryComponent
+        UpdateCountryComponent,
+        UpdateActivityLevelComponent,
+        UpdateCurrentWeightComponent,
+        UpdateGoalWeightComponent,
+        UpdateStartingWeightComponent,
+        UpdateWeeklyGoalComponent
     ],
     imports:[
         IonicModule.forRoot(AppSettingsHomeComponent)
@@ -37,7 +47,12 @@ import { UpdateDOBComponent } from '../pages/settings/edit-profile/update-dob/up
         UpdateGenderComponent,
         UpdateTimeZoneComponent,
         UpdateDOBComponent,
-        UpdateCountryComponent
+        UpdateCountryComponent,
+        UpdateActivityLevelComponent,
+        UpdateCurrentWeightComponent,
+        UpdateGoalWeightComponent,
+        UpdateStartingWeightComponent,
+        UpdateWeeklyGoalComponent
     ],
 })
 export class AppSettingsModule{

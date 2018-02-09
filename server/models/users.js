@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const ActivityLevel = require('../common/enums/activityLevel');
+const WeeklyGoal = require('../common/enums/weeklyGoal');
 
 var Schema = mongoose.Schema;
 
@@ -31,7 +33,16 @@ var UserSchema = new Schema({
         longitude: { type: Number ,default:0}
     },
     height : {type : Number,default : 0},
-    weight : {type : Number,default : 0}
+    weight : {type : Number,default : 0},
+    goal :{
+        starting :{
+            weight : {type:Number,default : 0},
+            date : {type : Date,default : new Date()}
+        },
+        goal_weight :{type : Number,default : 0},
+        weekly_goal :{type : String,default : 'Maintain my current weight'}
+    },
+    activity_level : {type : String,default : 'Lightly Active'}
 }, { timestamps: { createdAt: 'creation_date', updatedAt: 'updated_date' } });
 
 UserSchema.virtual('full_name').get(function () {

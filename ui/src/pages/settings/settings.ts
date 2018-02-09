@@ -3,6 +3,7 @@ import {NavParams,NavController} from 'ionic-angular';
 import { ProfileEditComponent } from './edit-profile/profile.edit';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { GoalSettingsComponent } from './goal-settings/settings.goal';
 
 @Component({
     templateUrl : 'settings.html',
@@ -18,6 +19,10 @@ export class AppSettingsHomeComponent{
 
     openEditProfile(){
         this.navCtrl.push(ProfileEditComponent,{user : this.user});
+    }
+
+    openEditGoal(){
+        this.navCtrl.push(GoalSettingsComponent,{user : this.user});
     }
 
     logout(){
