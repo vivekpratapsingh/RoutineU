@@ -18,16 +18,18 @@ export class ProfileEditComponent {
     disableDateTime : any;
 
     constructor(public navParams: NavParams, public alertCtrl: AlertController, public popoverCtrl: PopoverController) {
-        this.userId = this.navParams.data.userId;
-        this.user = {
-            'userId': '1',
-            'name': 'Vivek Pratap Singh',
-            'height': '160',
-            'gender':'male',
-            'dateOfBirth':'01/14/2017',
-            'country':'india',
-            'timezone':'chennai',
-        };
+        this.user = this.navParams.data.user;
+        this.user.birthday = new Date(this.user.birthday).toLocaleDateString();
+        console.log(this.user._id);
+        // this.user = {
+        //     'userId': '1',
+        //     'name': 'Vivek Pratap Singh',
+        //     'height': '160',
+        //     'gender':'male',
+        //     'dateOfBirth':'01/14/2017',
+        //     'country':'india',
+        //     'timezone':'chennai',
+        // };
         this.disableDateTime = false;
     }
 

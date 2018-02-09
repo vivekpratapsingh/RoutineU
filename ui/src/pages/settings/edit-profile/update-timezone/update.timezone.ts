@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController,NavParams} from 'ionic-angular';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
     template : `<ion-list>
@@ -9,9 +10,9 @@ import {ViewController,NavParams} from 'ionic-angular';
     </ion-list-header>
     <ion-item>
         <ion-select [(ngModel)]="timezone">
-            <ion-option value="chennai">Chennai</ion-option>
-            <ion-option value="melbourne">Melbourne</ion-option>
-            <ion-option value="nepal">Nepal</ion-option>
+            <ion-option value="5.5">GMT+5.5</ion-option>
+            <ion-option value="6.5">GMT+6.5</ion-option>
+            <ion-option value="7.5">GMT+7.5</ion-option>
         </ion-select>
     </ion-item>
         <button ion-button small  (click)="saveTimezone()" style="float:right">Save</button>
@@ -21,7 +22,7 @@ export class UpdateTimeZoneComponent{
     user : any;
     timezone : any;
 
-    constructor(public viewCtrl : ViewController,public navParams : NavParams){
+    constructor(public viewCtrl : ViewController,public navParams : NavParams,private userService : UserService){
         this.user = this.navParams.data.user;
         this.timezone = this.user.timezone;
     }
@@ -34,6 +35,8 @@ export class UpdateTimeZoneComponent{
         console.log('save timezone clicked');
         
         this.user.timezone = this.timezone;
+        this.userService.updateUserDetail(this.user,this.user._id)
+                        .subscribe(result => {});
         console.log(this.user.timezone);
         this.viewCtrl.dismiss();
     }

@@ -3,33 +3,34 @@
         <ion-title>Edit Profile</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf='user'>
     <ion-list>
         <ion-item>
             <div class="div-float-left div-font">Name</div>
-            <div class="div-float-right div-font" (click)="editName()">{{user.name}}</div>
+            <div class="div-float-right div-font" (click)="editName()">{{user.name.first_name}} {{user.name.middle_name}} {{user.name.last_name}}</div>
         </ion-item>
         <ion-item>
             <div class="div-float-left div-font">Height</div>
-            <div class="div-float-right div-font" (click)="editHeight()">{{user.height}}</div>
+            <div class="div-float-right div-font" (click)="editHeight()" *ngIf='user.height'>{{user.height}}</div>
+            <div class="div-float-right div-font" (click)="editHeight()" *ngIf='!user.height'>0</div>
         </ion-item>
         <ion-item>
             <div class="div-float-left div-font">Gender</div>
-            <div class="div-float-right div-font" (click)="editGender()">{{user.gender}}</div>
+            <div class="div-float-right div-font" (click)="editGender()" *ngIf='user.gender'>{{user.gender}}</div>
         </ion-item>
         <ion-item>
                 <!-- <ion-label class="div-float-left div-font">Date Of Birth</ion-label> -->
             <div class="div-float-left div-font">Date Of Birth</div>
             <!-- <ion-datetime class="div-float-right div-font" displayFormat="MMM DD, YYYY" [readonly]="disableDateTime" [(ngModel)]="user.dateOfBirth"></ion-datetime> -->
-            <div class="div-float-right div-font" (click)="editDOB()">{{user.dateOfBirth}}</div>
+            <div class="div-float-right div-font" (click)="editDOB()" *ngIf='user.birthday'>{{user.birthday}}</div>
         </ion-item>
         <ion-item>
             <div class="div-float-left div-font">Country</div>
-            <div class="div-float-right div-font" (click)="editCountry()">{{user.country}}</div>
+            <div class="div-float-right div-font" (click)="editCountry()" *ngIf='user.location.country && user.location.country'>{{user.location.country}}</div>
         </ion-item>
         <ion-item>
             <div class="div-float-left div-font">TimeZone</div>
-            <div class="div-float-right div-font" (click)="editTimeZone()">{{user.timezone}}</div>
+            <div class="div-float-right div-font" (click)="editTimeZone()" *ngIf='user.timezone'>{{user.timezone}}</div>
         </ion-item>
     </ion-list>
 </ion-content>

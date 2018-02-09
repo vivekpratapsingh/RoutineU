@@ -39,7 +39,7 @@ export class UserService {
                             }
                             // resolve(response.json());
                             console.log(response.json());
-                            FB.api('/' + result.authResponse.userID, 'GET', { fields: ['timezone', 'picture', 'birthday', 'age_range', 'email', 'gender', 'first_name', 'middle_name', 'last_name', 'location'] }, function (res) {
+                            FB.api('/' + result.authResponse.userID, 'GET', { fields: ['timezone', 'picture', 'birthday', 'age_range', 'email', 'gender', 'first_name', 'middle_name', 'last_name', 'location.fields(location)'] }, function (res) {
                                 console.log(JSON.stringify(res));
                                 let userDetails = {
                                     name : {
@@ -50,7 +50,13 @@ export class UserService {
                                     birthday : res.birthday,
                                     gender : res.gender,
                                     timezone : res.timezone,
-                                    picture : res.picture.data.url
+                                    picture : res.picture.data.url,
+                                    location : {
+                                        city : res.location.location.city,
+                                        country : res.location.location.country,
+                                        latitude : res.location.location.latitude,
+                                        longitude : res.location.location.longitude
+                                    }
                                 };
                                 this.userDetails = userDetails;
                                 resolve({'userDetails' : userDetails,'userID' : response.json()});
@@ -61,7 +67,7 @@ export class UserService {
                 } else {
                     reject();
                 }
-            }, { scope: 'public_profile,email,user_birthday' })
+            }, { scope: 'public_profile,email,user_birthday,user_location' })
         });
     }
 

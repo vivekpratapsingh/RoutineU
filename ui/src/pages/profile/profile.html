@@ -7,11 +7,11 @@
 <ion-content>
 
     <!-- Profile header-->
-    <ion-card style="text-align:center" padding>
+    <ion-card style="text-align:center" padding *ngIf='user'>
         <ion-icon ios="ios-settings" md="md-settings" style="float:right;font-size:2.2em" (click)="openSettings()"></ion-icon>
-        <img class="home-profile-img" src="../../assets/imgs/user_default.jpg" />
-        <div>{{user.name.first_name}} {{user.name.middle_name}} {{user.name.last_name}}</div>
-        <div>New Delhi,India</div>
+        <img class="home-profile-img" src="{{user.picture}}" />
+        <div >{{user.name.first_name}} {{user.name.middle_name}} {{user.name.last_name}}</div>
+        <div *ngIf='user.location'>{{user.location.city}},{{user.location.country}}</div>
         <ion-row>
             <ion-col><button ion-button class="home-header-button" (click)="checkDiet()">Check Diet</button></ion-col>
             <ion-col><button ion-button class="home-header-button">Check Schedule</button></ion-col>

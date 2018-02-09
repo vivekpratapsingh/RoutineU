@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ViewController,NavParams} from 'ionic-angular';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
     template : `<ion-list>
@@ -9,9 +10,9 @@ import {ViewController,NavParams} from 'ionic-angular';
     </ion-list-header>
     <ion-item>
         <ion-select [(ngModel)]="country">
-            <ion-option value="india">India</ion-option>
-            <ion-option value="australia">Australia</ion-option>
-            <ion-option value="nepal">Nepal</ion-option>
+            <ion-option value="India">India</ion-option>
+            <ion-option value="Australia">Australia</ion-option>
+            <ion-option value="Nepal">Nepal</ion-option>
         </ion-select>
     </ion-item>
         <button ion-button small  (click)="saveCountry()" style="float:right">Save</button>
@@ -21,9 +22,9 @@ export class UpdateCountryComponent{
     user : any;
     country : any;
 
-    constructor(public viewCtrl : ViewController,public navParams : NavParams){
+    constructor(public viewCtrl : ViewController,public navParams : NavParams,private userService : UserService){
         this.user = this.navParams.data.user;
-        this.country = this.user.country;
+        this.country = this.user.location.country;
     }
 
     close(){
@@ -33,7 +34,10 @@ export class UpdateCountryComponent{
     saveCountry(){
         console.log('save country clicked');
         
-        this.user.country = this.country;
+        this.user.location.country = this.country;
+        this.userService.updateUserDetail(this.user,this.user._id)
+                        .subscribe(result => {});
+
         console.log(this.user.country);
         this.viewCtrl.dismiss();
     }

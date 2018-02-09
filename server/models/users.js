@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     name: {
-        first_name: { type: String },
-        middle_name: { type: String },
-        last_name: { type: String },
+        first_name: { type: String ,default:''},
+        middle_name: { type: String ,default:''},
+        last_name: { type: String ,default:''},
     },
     birthday: { type: Date },
-    gender: { type: String },
+    gender: { type: String ,enum :['male','female']},
     email: {
         type: String, required: true,
         trim: true, unique: true,
@@ -22,21 +22,29 @@ var UserSchema = new Schema({
         },
         select: false
     },
-    timezone: { type: Number },
-    picture: { type: String }
+    timezone: { type: Number,default : 0},
+    picture: { type: String,default:'' },
+    location: {
+        city: { type: String,default:'' },
+        country: { type: String,default:'' },
+        latitude: { type: Number,default:0 },
+        longitude: { type: Number ,default:0}
+    },
+    height : {type : Number,default : 0},
+    weight : {type : Number,default : 0}
 }, { timestamps: { createdAt: 'creation_date', updatedAt: 'updated_date' } });
 
 UserSchema.virtual('full_name').get(function () {
-    return this.name.first_name + this.name.middle_name + this.name.last_name;
+    return this.name.first_name + ' ' + this.name.middle_name + ' ' + this.name.last_name;
 });
 
-UserSchema.virtual('age').get(function(){
+UserSchema.virtual('age').get(function () {
     let today = new Date();
-    let a  = this.birthday;
-    return ((today.getTime() - a.getTime())/31536000000).toPrecision(2);
+    let a = this.birthday;
+    return ((today.getTime() - a.getTime()) / 31536000000).toPrecision(2);
 })
 
-UserSchema.virtual('url').get(function(){
+UserSchema.virtual('url').get(function () {
     return '/users/' + this._id;
 })
 

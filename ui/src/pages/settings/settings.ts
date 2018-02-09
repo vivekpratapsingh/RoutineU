@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 })
 export class AppSettingsHomeComponent{
 
-    userId : any;
+    user : any;
     constructor(public navParams : NavParams,public navCtrl:NavController,
                 private userService : UserService,private router : Router){
-        this.userId = this.navParams.get('userId');
+        this.user = this.navParams.data.user;
     }
 
     openEditProfile(){
-        this.navCtrl.push(ProfileEditComponent,{userId : this.userId});
+        this.navCtrl.push(ProfileEditComponent,{user : this.user});
     }
 
     logout(){

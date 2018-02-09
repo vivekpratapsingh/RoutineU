@@ -32,6 +32,8 @@ export class UpdateGenderComponent{
     saveGender(){
         console.log('save gender clicked');
         this.user.gender = this.gender;
+        this.userService.updateUserDetail(this.user,this.user._id)
+                            .subscribe(result => {});
         console.log(this.user.gender);
         this.viewCtrl.dismiss();
     }

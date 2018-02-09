@@ -18,9 +18,8 @@ export class LoginComponent{
 
     fbLogin(){
         console.log('fb login clicked')
-        this.userService.fbLogin().then((data) => {
-            let result = JSON.stringify(data);
-            // console.log(data.userID);
+        this.userService.fbLogin().then((data : any) => {
+            console.log(data);
             this.userService.updateUserDetail(data.userDetails,data.userID.id).subscribe(result => {
                 console.log(result);
                 localStorage.setItem('id',data.userID.id);

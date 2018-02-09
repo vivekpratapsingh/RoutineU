@@ -17,10 +17,18 @@ export class ProfileComponent implements OnInit {
 
     barChart: any;
     user : any;
+    userId : any;
+    constructor(public navCtrl: NavController,private userService : UserService) {
+        this.userId = localStorage.getItem('id');
+        console.log(this.userId);
+        this.getUserDetailsById(this.userId,(result) => {
+            console.log(result);
+            this.user = result;
+            console.log(this.user);
+        });
+    }
 
-    constructor(public navCtrl: NavController,private userService : UserService) { }
-
-    // Calorie consumtion chart
+    // Calorie consumption chart
     ionViewDidLoad() {
         this.barChart = new Chart(this.barCanvas.nativeElement, {
             type: 'bar',
@@ -58,10 +66,6 @@ export class ProfileComponent implements OnInit {
                 }
             }
         })
-
-        let userId = localStorage.getItem('id');
-        console.log(userId);
-        this.getUserDetailsById(userId);
     }
 
     ngOnInit(){
@@ -84,7 +88,7 @@ export class ProfileComponent implements OnInit {
 
     //Open settings home page
     openSettings(){
-        this.navCtrl.push(AppSettingsHomeComponent,{userId : "1"});
+        this.navCtrl.push(AppSettingsHomeComponent,{user : this.user});
     }
 
     //open user diet
@@ -93,11 +97,9 @@ export class ProfileComponent implements OnInit {
     }
 
     //get user detials by id
-    getUserDetailsById(id:any){
+    getUserDetailsById(id:any,callback){
         this.userService.getUserDetailsById(id).subscribe(user => {
-            
-            this.user = user;
-            console.log(this.user);
+            callback(user);
         })
     }
 }
