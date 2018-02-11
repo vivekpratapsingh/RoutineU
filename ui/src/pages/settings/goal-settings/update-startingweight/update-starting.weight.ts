@@ -10,8 +10,10 @@ import { UserService } from '../../../../services/user.service';
                     </ion-list-header>
                         <ion-item>
                         <ion-input type="number" [(ngModel)]="startingtWeight"></ion-input> on
+                        <ion-label fixed>Kg</ion-label>
                         </ion-item>
                         <ion-item>
+                        <ion-label fixed>on</ion-label>
                         <ion-datetime displayFormat="MMM DD, YYYY"  [(ngModel)]="staritngWeightDate"></ion-datetime>
                         </ion-item>
                         <button ion-button small  (click)="saveStartingWeight()" style="float:right">Save</button>

@@ -15,6 +15,9 @@ import { UpdateCurrentWeightComponent } from '../pages/settings/goal-settings/up
 import { UpdateGoalWeightComponent } from '../pages/settings/goal-settings/update-goalweight/update-goal.weight';
 import { UpdateStartingWeightComponent } from '../pages/settings/goal-settings/update-startingweight/update-starting.weight';
 import { UpdateWeeklyGoalComponent } from '../pages/settings/goal-settings/update-weeklygoal/update-weekly.goal';
+import { UpdateCalorieComponent } from '../pages/macros/update-calories/update.calories';
+import { UpdateMacrosComponent } from '../pages/macros/update-macros/update.macros';
+
 
 @NgModule({
     declarations :[
@@ -32,7 +35,9 @@ import { UpdateWeeklyGoalComponent } from '../pages/settings/goal-settings/updat
         UpdateCurrentWeightComponent,
         UpdateGoalWeightComponent,
         UpdateStartingWeightComponent,
-        UpdateWeeklyGoalComponent
+        UpdateWeeklyGoalComponent,
+        UpdateCalorieComponent,
+        UpdateMacrosComponent
     ],
     imports:[
         IonicModule.forRoot(AppSettingsHomeComponent)
@@ -52,7 +57,9 @@ import { UpdateWeeklyGoalComponent } from '../pages/settings/goal-settings/updat
         UpdateCurrentWeightComponent,
         UpdateGoalWeightComponent,
         UpdateStartingWeightComponent,
-        UpdateWeeklyGoalComponent
+        UpdateWeeklyGoalComponent,
+        UpdateCalorieComponent,
+        UpdateMacrosComponent
     ],
 })
 export class AppSettingsModule{

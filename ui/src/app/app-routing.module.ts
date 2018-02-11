@@ -4,6 +4,7 @@ import { LoginComponent } from '../pages/login/login';
 import { IndexComponent } from '../pages/index/index';
 import { AuthGuard } from '../services/auth.gaurd';
 import { AnonymousGuard } from '../services/anonymous.gaurd';
+import { WelcomeComponent } from '../pages/welcome/welcome.component';
 
 const appRoutes : Routes = [
     {
@@ -12,8 +13,13 @@ const appRoutes : Routes = [
         canActivate : [AnonymousGuard]
     },
     {
-        path:'welcome',
+        path:'home',
         component : IndexComponent,
+        canActivate : [AuthGuard]
+    },
+    {
+        path:'welcome',
+        component : WelcomeComponent,
         canActivate : [AuthGuard]
     }
     ,{ path : '',redirectTo : '/login',pathMatch : 'full'},

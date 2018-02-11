@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {NavParams,AlertController, PopoverController } from 'ionic-angular';
+import {NavParams,AlertController, PopoverController,NavController } from 'ionic-angular';
 import { UpdateActivityLevelComponent } from './update-activitylevel/update-activity.level';
 import { UpdateWeeklyGoalComponent } from './update-weeklygoal/update-weekly.goal';
 import { UpdateGoalWeightComponent } from './update-goalweight/update-goal.weight';
 import { UpdateCurrentWeightComponent } from './update-currentweight/update-current.weight';
 import { UpdateStartingWeightComponent } from './update-startingweight/update-starting.weight';
+import { MacrosHomeComponent } from '../../macros/macros.home';
 
 @Component({
     templateUrl : 'settings.goal.html',
@@ -14,7 +15,8 @@ export class GoalSettingsComponent{
 
     user : any;
 
-    constructor(private navParams : NavParams,private alertCtrl : AlertController,private popoverCtrl:PopoverController){
+    constructor(private navParams : NavParams,private alertCtrl : AlertController,
+        private popoverCtrl:PopoverController,private navCtrl : NavController){
         this.user = this.navParams.data.user;
         this.user.goal.starting.date = new Date(this.user.goal.starting.date).toLocaleDateString();
         console.log(this.user);
@@ -158,5 +160,11 @@ export class GoalSettingsComponent{
             }
         );
         confirm.present();
+    }
+
+    //open macronutrient page
+    openMacroPage(){
+        console.log('open macro clicked');
+        this.navCtrl.push(MacrosHomeComponent,{user : this.user});
     }
 }
