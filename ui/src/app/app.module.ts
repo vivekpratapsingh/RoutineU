@@ -29,6 +29,9 @@ import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quanti
 import { DiaryComponent } from '../pages/diary/diary';
 import { FoodSearchComponent } from '../pages/food/food-search/food.search';
 import { WaterAddComponent } from '../pages/food/water-add/water.add';
+import {MacrosHomeComponent} from '../pages/macros/macros.home';
+import { WelcomeModule } from '../pages/welcome/welcome-module';
+import { DataService } from '../services/data.serveice';
 
 
 @NgModule({
@@ -50,14 +53,16 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
     AddFoodQuantityComponent,
     DiaryComponent,
     FoodSearchComponent,
-    WaterAddComponent
+    WaterAddComponent,
+    MacrosHomeComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AppRoutingModule,
     HttpModule,
-    AppSettingsModule
+    AppSettingsModule,
+    WelcomeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -76,12 +81,14 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
     AddFoodQuantityComponent,
     DiaryComponent,
     FoodSearchComponent,
-    WaterAddComponent
+    WaterAddComponent,
+    MacrosHomeComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     UserService,
+    DataService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -40,7 +40,22 @@ var UserSchema = new Schema({
             date : {type : Date,default : new Date()}
         },
         goal_weight :{type : Number,default : 0},
-        weekly_goal :{type : String,default : 'Maintain my current weight'}
+        weekly_goal :{type : String,default : 'Maintain my current weight'},
+        calories : {type : Number,default : 0},
+        macros : {
+            carbohydrate : {
+                amount : {type:Number,default : 0},
+                percentage : {type : Number,default : 0}
+            },
+            protein :{
+                amount : {type:Number,default : 0},
+                percentage : {type : Number,default : 0}
+            },
+            fat :{
+                amount : {type:Number,default : 0},
+                percentage : {type : Number,default : 0}
+            }
+        }
     },
     activity_level : {type : String,default : 'Lightly Active'}
 }, { timestamps: { createdAt: 'creation_date', updatedAt: 'updated_date' } });

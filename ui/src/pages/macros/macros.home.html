@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Calorie  Macro Goals</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-item-group>
+        <ion-item-divider>Default Goal</ion-item-divider>
+        <ion-item>
+            <div class="div-float-left div-font">Calories</div>
+            <div class="div-float-right div-font" (click)="updateCalories()">{{user.goal.calories}} KCal</div>
+        </ion-item>
+        <ion-item>
+            <div class="div-float-left div-font">Carbohydrates  <span>{{user.goal.macros.carbohydrate.amount}}g</span>
+            </div>
+            <div class="div-float-right div-font" (click)="updateMacros()">{{user.goal.macros.carbohydrate.percentage}} %</div>
+        </ion-item>
+        <ion-item>
+            <div class="div-float-left div-font">Protein  <span>{{user.goal.macros.protein.amount}} g</span>
+            </div>
+            <div class="div-float-right div-font" (click)="updateMacros()">{{user.goal.macros.protein.percentage}} %</div>
+        </ion-item>
+        <ion-item>
+            <div class="div-float-left div-font">Fat  <span>{{user.goal.macros.fat.amount}} g</span>
+            </div>
+            <div class="div-float-right div-font" (click)="updateMacros()">{{user.goal.macros.fat.percentage}} %</div>
+        </ion-item>
+    </ion-item-group>
+</ion-content>

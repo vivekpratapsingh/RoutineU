@@ -1,0 +1,81 @@
+<ion-slides pager class="welcome-page" *ngIf='user'>
+    <ion-slide>
+        <ion-toolbar>
+            <ion-buttons end>
+                <button ion-button color="primary" (click)="nextSlide()">Skip</button>
+            </ion-buttons>
+        </ion-toolbar>
+        <h2>Basic Details</h2>
+        <ion-item>
+            <ion-label>Gender</ion-label>
+            <ion-select [(ngModel)]="user.gender">
+                <ion-option value="male">Male</ion-option>
+                <ion-option value="female">Female</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Birthday</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="birthday"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>City</ion-label>
+            <ion-select [(ngModel)]="user.location.city">
+                <ion-option value="Gurgaon">Gurgaon</ion-option>
+                <ion-option value="Delhi">Delhi</ion-option>
+                <ion-option value="Noida">Delhi</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Country</ion-label>
+            <ion-select [(ngModel)]="user.location.country">
+                <ion-option value="India">India</ion-option>
+                <ion-option value="Australia">Australia</ion-option>
+                <ion-option value="USA">USA</ion-option>
+            </ion-select>
+        </ion-item>
+        <button ion-button large clear icon-end color="primary" (click)="updateUserDetails()">
+            Continue
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+    </ion-slide>
+
+    <ion-slide>
+        <ion-toolbar>
+            <ion-buttons end>
+                <button ion-button color="primary" (click)='nextSlide()'>Skip</button>
+            </ion-buttons>
+        </ion-toolbar>
+        <h2>Goal Details</h2>
+        <ion-item>
+            <ion-label>Height(cm)</ion-label>
+            <ion-select [(ngModel)]="user.height">
+                <ion-option *ngFor="let value of height_numbers" [value]="value">{{value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Weight(kg)</ion-label>
+            <ion-select [(ngModel)]="user.weight">
+                <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Starting Weight(kg)</ion-label>
+            <ion-select [(ngModel)]="user.goal.starting.weight">
+                <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>on</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="starting_date"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Goal Weight</ion-label>
+            <ion-select [(ngModel)]="user.goal.goal_weight">
+                <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <button ion-button large clear icon-end color="primary" (click)="updateUserDetails()">
+            Submit
+        </button>
+    </ion-slide>
+</ion-slides>
