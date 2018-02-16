@@ -54,13 +54,13 @@
         </ion-item>
         <ion-item>
             <ion-label>Weight(kg)</ion-label>
-            <ion-select [(ngModel)]="localUser.weight">
+            <ion-select [(ngModel)]="localUser.weight.current.weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label>Starting Weight(kg)</ion-label>
-            <ion-select [(ngModel)]="localUser.goal.starting.weight">
+            <ion-select [(ngModel)]="localUser.weight.initial.weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
@@ -70,12 +70,13 @@
         </ion-item>
         <ion-item>
             <ion-label>Goal Weight</ion-label>
-            <ion-select [(ngModel)]="localUser.goal.goal_weight">
+            <ion-select [(ngModel)]="goal_weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
         <button ion-button large clear icon-end color="primary" (click)="updateUserDetails()">
-            Submit
+            Continue
+            <ion-icon name="arrow-forward"></ion-icon>
         </button>
     </ion-slide>
     <ion-slide>
@@ -87,20 +88,21 @@
         </ion-item>
         <ion-item>
             <ion-label>Weekly Goal</ion-label>
-            <ion-select [(ngModel)]="localUser.goal.weekly_goal">
+            <ion-select [(ngModel)]="weekly_goal">
                 <ion-option *ngFor="let value of weekly_goals" [value]="value.goal">{{value.goal}}</ion-option>
             </ion-select>
         </ion-item>
         <button ion-button large (click)="calculateCalorie()">
             Calculate Calorie Requirement
-        </button><br />
+        </button>
+        <br />
         <ion-card style="text-align:center;align-items:center;justify-content:center" *ngIf="bmi">
             {{bmi}}
         </ion-card>
         <ion-card style="text-align:center;align-items:center;justify-content:center" *ngIf="calorieGoal">
             <h3>Maintaince Calorie</h3>
             <h2>{{calorieGoal.bmr}}</h2>
-            <h3>Calorie Requirement({{user.goal.weekly_goal}})</h3>
+            <h3>Calorie Requirement({{weekly_goal}})</h3>
             <h2>{{calorieGoal.goal}}</h2>
         </ion-card>
         <button ion-button large (click)="saveUserDetails()">

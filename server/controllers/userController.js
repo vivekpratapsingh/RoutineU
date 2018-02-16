@@ -29,6 +29,14 @@ exports.update_user_detail = [
             console.log(updatedUser);
             res.send(updatedUser);
         });
+
+        // User.findOneAndUpdate({_id: req.params.id},{ $set : req.body},{new :true}).populate('full_name').exec(function(err,updatedUser){
+        //     if(err){
+        //         console.log(err);
+        //     }
+        //     console.log(updatedUser);
+        //     res.send(updatedUser);
+        // });
     }
 ]
 

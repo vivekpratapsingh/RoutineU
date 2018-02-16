@@ -5,6 +5,7 @@ import { IndexComponent } from '../pages/index/index';
 import { AuthGuard } from '../services/auth.gaurd';
 import { AnonymousGuard } from '../services/anonymous.gaurd';
 import { WelcomeComponent } from '../pages/welcome/welcome.component';
+import { UserResolve } from '../services/user.resolve';
 
 const appRoutes : Routes = [
     {
@@ -13,14 +14,20 @@ const appRoutes : Routes = [
         canActivate : [AnonymousGuard]
     },
     {
-        path:'home',
+        path:'home/:id',
         component : IndexComponent,
-        canActivate : [AuthGuard]
+        canActivate : [AuthGuard],
+        resolve : {
+            user : UserResolve
+        }
     },
     {
-        path:'welcome',
+        path:'welcome/:id',
         component : WelcomeComponent,
-        canActivate : [AuthGuard]
+        canActivate : [AuthGuard],
+        resolve : {
+            user : UserResolve
+        }
     }
     ,{ path : '',redirectTo : '/login',pathMatch : 'full'},
 ]
@@ -34,7 +41,8 @@ const appRoutes : Routes = [
     ],
     providers:[
         AuthGuard,
-        AnonymousGuard
+        AnonymousGuard,
+        UserResolve
     ]
 })
 export class AppRoutingModule{

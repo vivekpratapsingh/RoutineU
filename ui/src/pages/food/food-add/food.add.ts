@@ -1,52 +1,90 @@
-import {Component} from '@angular/core';
-import {NavParams,PopoverController,NavController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavParams, PopoverController, NavController } from 'ionic-angular';
 import { AddFoodQuantityComponent } from './food-add-quantity/food-add.quantity';
+import { DataService } from '../../../services/data.serveice';
+import { Calculator } from '../../../helpers/calculator';
 
 @Component({
-    templateUrl:'food.add.html',
-    styleUrls :['/food.add.scss']
+    templateUrl: 'food.add.html',
+    styleUrls: ['/food.add.scss']
 })
-export class AddFoodComponent{
-    food : any;
-    foodId : any;
-    nutritionDetail : any;
-    previousPage : any;
-    title : string;
-    constructor(private popoverCtrl : PopoverController,private navParams : NavParams,private navCtrl : NavController){
-        // this.foodId = this.navParams.data.foodId;
-        // this.food = {
-        //     "foodId":this.foodId,
-        //     "servings" : '1',
-        //     "servingsize" : '1 gm'
-        // };
-        this.food = this.navParams.data.foodItem;
-        this.foodId = this.food.id;
+export class AddFoodComponent {
+    food: any;
+    nutritionDetail: any;
+    title: string;
+    mealOption: string;
+    servings: number;
+    user: any;
+    addedFood: any;
+    foodItem: any;
+    constructor(private popoverCtrl: PopoverController, private navParams: NavParams,
+        private navCtrl: NavController, private sharedService: DataService) {
+        if (this.navParams.data.foodItem != undefined) {
+            this.food = this.navParams.data.foodItem;
+        }
+        if (this.navParams.data.addedFood != undefined) {
+            this.addedFood = this.navParams.data.addedFood;
+        }
+        this.user = this.navParams.data.user;
+        console.log(this.user);
+
+        if (this.food != null || this.food != undefined) {
+            this.foodItem = this.initFoodItem(this.food, this.navParams.data.mealOption, this.food.quantity[0].serving_size.size.amount,
+                this.food.quantity[0].serving_size.size.unit, 1);
+        }
+        if (this.addedFood != null || this.addedFood != undefined) {
+            this.foodItem = this.initFoodItem(this.addedFood.food, this.addedFood.mealOption, this.addedFood.servings.size.amount,
+                this.addedFood.servings.size.unit, this.addedFood.servings.quantity);
+        }
+        console.log(this.foodItem);
+
         this.nutritionDetail = false;
-        this.previousPage = this.navCtrl.last();
-        console.log(this.previousPage.component.name);
-        if(this.previousPage.component.name == 'FoodSearchComponent'){
-            this.title = "Add Food";
-        }
-        else{
-            this.title = "Edit Entry";
-        }
+        this.servings = 1;
+        this.setPageTitle();
+
     }
 
-    updateQuantity(){
+    updateQuantity() {
         let popover = this.popoverCtrl.create(AddFoodQuantityComponent, {
-            food: this.food
+            food: this.foodItem
         });
         popover.present();
     }
 
-    showNutrition(option){
-        switch(option){
+    showNutrition(option) {
+        switch (option) {
             case 'enable':
                 this.nutritionDetail = true;
                 break;
             case 'disable':
                 this.nutritionDetail = false;
-                break;    
+                break;
+        }
+    }
+
+    initFoodItem(food: any, mealOption: string, amount: number, unit: string, quantity: number) {
+        let Item = {
+            food: food,
+            mealOption: mealOption,
+            servings: {
+                size: {
+                    amount: amount,
+                    unit: unit
+                },
+                quantity: quantity
+            },
+            nutrients: Calculator.getFoodNutrientByQuantity(amount, unit, food, quantity)
+        };
+        return Item;
+    }
+
+    setPageTitle() {
+        let previousPage = this.navCtrl.last().component.name;
+        if (previousPage == 'FoodSearchComponent') {
+            this.title = "Add Food";
+        }
+        else {
+            this.title = "Edit Entry";
         }
     }
 }

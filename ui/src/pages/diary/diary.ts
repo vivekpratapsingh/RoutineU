@@ -1,21 +1,25 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import { NavController, NavParams } from 'ionic-angular';
 import { FoodSearchComponent } from '../food/food-search/food.search';
 import { WaterAddComponent } from '../food/water-add/water.add';
+import { DataService } from '../../services/data.serveice';
 
 @Component({
     templateUrl: 'diary.html',
     styleUrls: ['/diary.scss']
 })
 export class DiaryComponent {
-    userId: any;
+    user: any;
     date: Date;
     displayDate: any;
     months : Array<string> = ['Jan','Feb','Mar','Apr','Jun','July','Aug','Sep','Oct','Nov','Dec'];
     days : Array<string> = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-    constructor(private navParams: NavParams, private navCtrl: NavController) {
-        // this.userId = this.navParams.data.userId
+    constructor(private navParams: NavParams, private navCtrl: NavController,
+        private sharedService : DataService,private route : ActivatedRoute) {
+        this.user = this.route.snapshot.data['user'];;
+        console.log(this.user);
         this.displayDate = 'Today';
         this.date = new Date();
     }
@@ -25,10 +29,10 @@ export class DiaryComponent {
         console.log(option);
 
         if (option == 'Water') {
-            this.navCtrl.push(WaterAddComponent,{userId : this.userId,date:this.date});
+            this.navCtrl.push(WaterAddComponent,{userId : this.user._id,date:this.date});
         }
         else {
-            this.navCtrl.push(FoodSearchComponent, { mealOption: option, userId: this.userId, date: this.date });
+            this.navCtrl.push(FoodSearchComponent, { mealOption: option, user: this.user, date: this.date });
         }
     }
 

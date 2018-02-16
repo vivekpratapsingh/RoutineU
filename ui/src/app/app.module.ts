@@ -32,6 +32,7 @@ import { WaterAddComponent } from '../pages/food/water-add/water.add';
 import {MacrosHomeComponent} from '../pages/macros/macros.home';
 import { WelcomeModule } from '../pages/welcome/welcome-module';
 import { DataService } from '../services/data.serveice';
+import { FoodService } from '../services/food.service';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { DataService } from '../services/data.serveice';
     SplashScreen,
     UserService,
     DataService,
+    FoodService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

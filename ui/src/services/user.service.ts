@@ -77,7 +77,7 @@ export class UserService {
 
     isLoggedIn() {
         return new Promise((resolve, reject) => {
-            this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
+            this.getCurrentUser().then(user => resolve(user)).catch(() => reject(false));
         });
     }
 
@@ -90,6 +90,7 @@ export class UserService {
                 headers: headers
             });
             return this.http.get(`http://localhost:3000/auth/me`, options).toPromise().then(response => {
+                console.log(response.json());
                 resolve(response.json());
             }).catch(() => reject());
         });

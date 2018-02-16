@@ -1,10 +1,14 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <ion-title>Diary</ion-title>
-        <ion-icon ios="ios-pie" md="md-pie" class="nav-icon-right"></ion-icon>
-    </ion-navbar>
+        <ion-buttons end>
+            <button ion-button icon-only>
+                <ion-icon ios="ios-pie" md="md-pie"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="diary-component">
     <!--chnage day-->
     <ion-card style="margin-top:0%">
         <ion-row>
@@ -50,14 +54,17 @@
     <ion-card>
         <ion-list>
             <ion-item>
-                <div style="float:left">BreakFast</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Breakfast')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
-
+                <ion-toolbar>
+                    <p style="color:black">BreakFast</p>
+                    <ion-buttons end>
+                        <!-- <div style="float:right"> -->
+                        <button ion-button (click)="addFood('Breakfast')">
+                            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+                            Add Food
+                        </button>
+                    </ion-buttons>
+                    <!-- </div> -->
+                </ion-toolbar>
             </ion-item>
         </ion-list>
     </ion-card>
@@ -66,13 +73,17 @@
     <ion-card>
         <ion-list>
             <ion-item>
-                <div style="float:left">Lunch</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Lunch')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
+                <ion-toolbar>
+                    <p style="color:black">Lunch</p>
+                    <ion-buttons end>
+                        <!-- <div style="float:right"> -->
+                        <button ion-button (click)="addFood('Lunch')">
+                            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+                            Add Food
+                        </button>
+                    </ion-buttons>
+                    <!-- </div> -->
+                </ion-toolbar>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">
@@ -120,13 +131,17 @@
     <ion-card>
         <ion-list>
             <ion-item>
-                <div style="float:left">Dinner</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Dinner')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
+                <ion-toolbar>
+                    <p style="color:black">Dinner</p>
+                    <ion-buttons end>
+                        <!-- <div style="float:right"> -->
+                        <button ion-button (click)="addFood('Dinner')">
+                            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+                            Add Food
+                        </button>
+                    </ion-buttons>
+                    <!-- </div> -->
+                </ion-toolbar>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">
@@ -174,13 +189,17 @@
     <ion-card>
         <ion-list>
             <ion-item>
-                <div style="float:left">Snacks</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Snacks')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
+                <ion-toolbar>
+                    <p style="color:black">Snacks</p>
+                    <ion-buttons end>
+                        <!-- <div style="float:right"> -->
+                        <button ion-button (click)="addFood('Snacks')">
+                            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+                            Add Food
+                        </button>
+                    </ion-buttons>
+                    <!-- </div> -->
+                </ion-toolbar>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">
@@ -228,13 +247,17 @@
     <ion-card>
         <ion-list>
             <ion-item>
-                <div style="float:left">Water</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Water')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Water
-                    </button>
-                </div>
+                <ion-toolbar>
+                    <p style="color:black">Water</p>
+                    <ion-buttons end>
+                        <!-- <div style="float:right"> -->
+                        <button ion-button (click)="addFood('Water')">
+                            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+                            Add Water
+                        </button>
+                    </ion-buttons>
+                    <!-- </div> -->
+                </ion-toolbar>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">
