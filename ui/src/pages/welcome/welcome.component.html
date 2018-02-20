@@ -96,14 +96,15 @@
             Calculate Calorie Requirement
         </button>
         <br />
-        <ion-card style="text-align:center;align-items:center;justify-content:center" *ngIf="bmi">
-            {{bmi}}
+        <ion-card *ngIf="bmi">
+            <h3>Your BMI</h3>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{bmi}}</h2>
         </ion-card>
-        <ion-card style="text-align:center;align-items:center;justify-content:center" *ngIf="calorieGoal">
+        <ion-card *ngIf="calorieGoal">
             <h3>Maintaince Calorie</h3>
-            <h2>{{calorieGoal.bmr}}</h2>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{calorieGoal.bmr}}</h2>
             <h3>Calorie Requirement({{weekly_goal}})</h3>
-            <h2>{{calorieGoal.goal}}</h2>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{calorieGoal.goal}}</h2>
         </ion-card>
         <button ion-button large (click)="saveUserDetails()">
             Done

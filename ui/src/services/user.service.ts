@@ -75,7 +75,7 @@ export class UserService {
         localStorage.removeItem('id_token');
     }
 
-    isLoggedIn() {
+    isLoggedIn() : Promise<any> {
         return new Promise((resolve, reject) => {
             this.getCurrentUser().then(user => resolve(user)).catch(() => reject(false));
         });

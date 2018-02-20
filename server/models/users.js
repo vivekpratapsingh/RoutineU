@@ -126,18 +126,18 @@ UserSchema.virtual('url').get(function () {
 });
 
 UserSchema.virtual('infoRequired').get(function () {
-    if (this.height == undefined && this.height == 0 &&
-        this.weight == undefined && this.weight.initial.weight == undefined && this.weight.initial.weight == 0 &&
-        this.logs == undefined && this.logs.goal == undefined &&
-        this.logs.goal.weight[0] == undefined && this.logs.goal.weight[0].weight == 0 &&
-        this.logs.goal.calories[0] == undefined && this.logs.goal.calories[0].calories == 0 &&
-        this.logs.goal.macros[0] == undefined && this.logs.goal.macros[0].macros == undefined &&
-        this.logs.goal.macros[0].macros.carbohydrate == undefined && this.logs.goal.macros[0].macros.carbohydrate == 0 &&
-        this.logs.goal.macros[0].macros.protein == undefined && this.logs.goal.macros[0].macros.protein == 0 &&
-        this.logs.goal.macros[0].macros.fat == undefined && this.logs.goal.macros[0].macros.fat == 0) {
-        return false;
+    if (this.height == undefined || this.height == 0 ||
+        this.weight == undefined || this.weight.initial.weight == undefined || this.weight.initial.weight == 0 ||
+        this.logs == undefined || this.logs.goal == undefined ||
+        this.logs.goal.weight[0] == undefined || this.logs.goal.weight[0].weight == 0 ||
+        this.logs.goal.calories[0] == undefined || this.logs.goal.calories[0].calories == 0 ||
+        this.logs.goal.macros[0] == undefined || this.logs.goal.macros[0].macros == undefined ||
+        this.logs.goal.macros[0].macros.carbohydrate == undefined || this.logs.goal.macros[0].macros.carbohydrate == 0 ||
+        this.logs.goal.macros[0].macros.protein == undefined || this.logs.goal.macros[0].macros.protein == 0 ||
+        this.logs.goal.macros[0].macros.fat == undefined || this.logs.goal.macros[0].macros.fat == 0) {
+        return true;
     }
-    return true;
+    return false;
 });
 
 UserSchema.virtual('current_weight').get(function () {

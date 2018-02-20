@@ -17,11 +17,13 @@ import { UserService } from '../../../services/user.service';
 })
 export class UpdateCalorieComponent {
     user: any;
-    calories: any
+    calories: any = 0;
     constructor(private navParams: NavParams, private viewCtrl: ViewController,
         private userService: UserService) {
         this.user = this.navParams.data.user;
-        this.calories = this.user.goal.calories;
+        if(this.user.logs.goal.calories.length > 0){
+            this.calories = this.user.logs.goal.calories[this.user.logs.goal.calories.length - 1].calories;
+        }
     }
 
     close(){
@@ -29,7 +31,7 @@ export class UpdateCalorieComponent {
     }
 
     updateCalories() {
-        this.user.goal.calories = this.calories;
+        this.user.logs.goal.calories.push({calories : this.calories});
         this.userService.updateUserDetail(this.user, this.user._id)
             .subscribe(result => { });
 

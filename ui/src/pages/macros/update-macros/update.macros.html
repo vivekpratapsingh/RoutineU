@@ -5,49 +5,22 @@
             <ion-icon item-end ios="ios-close" md="md-close" (click)="close()"></ion-icon>
         </ion-list-header>
         <ion-item>
-            <!-- <div class="div-float-left div-font"> -->
             <ion-label> Carbs ({{carbs.amount}}g)</ion-label>
-            <!-- </div> -->
-            <!-- <div class="div-float-right div-font"> -->
             <ion-select [(ngModel)]="carbs.percentage">
-                <ion-option value="0">0%</ion-option>
-                <ion-option value="10">10%</ion-option>
-                <ion-option value="20">20%</ion-option>
-                <ion-option value="30">30%</ion-option>
-                <ion-option value="40">40%</ion-option>
-                <ion-option value="50">50%</ion-option>
+                <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
-            <!-- </div> -->
         </ion-item>
         <ion-item>
-            <!-- <div class="div-float-left div-font"> -->
             <ion-label> Protein ({{protein.amount}}g)</ion-label>
-            <!-- </div> -->
-            <!-- <div class="div-float-right div-font"> -->
             <ion-select [(ngModel)]="protein.percentage">
-                <ion-option value="0">0%</ion-option>
-                <ion-option value="10">10%</ion-option>
-                <ion-option value="20">20%</ion-option>
-                <ion-option value="30">30%</ion-option>
-                <ion-option value="40">40%</ion-option>
-                <ion-option value="50">50%</ion-option>
+                    <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
-            <!-- </div> -->
         </ion-item>
         <ion-item>
-            <!-- <div class="div-float-left div-font"> -->
             <ion-label> Fat ({{fat.amount}}g)</ion-label>
-            <!-- </div> -->
-            <!-- <div class="div-float-right div-font"> -->
             <ion-select [(ngModel)]="fat.percentage">
-                <ion-option value="0">0%</ion-option>
-                <ion-option value="10">10%</ion-option>
-                <ion-option value="20">20%</ion-option>
-                <ion-option value="30">30%</ion-option>
-                <ion-option value="40">40%</ion-option>
-                <ion-option value="50">50%</ion-option>
+                    <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
-            <!-- </div> -->
         </ion-item>
         <button ion-button small (click)="updateMacros()" [disabled]="getInt(carbs.percentage) + getInt(protein.percentage) + getInt(fat.percentage) != 100" style="float:right">Save</button>
     </ion-list>

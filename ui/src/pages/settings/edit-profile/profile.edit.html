@@ -19,10 +19,8 @@
             <div class="div-float-right div-font" (click)="editGender()" *ngIf='user.gender'>{{user.gender}}</div>
         </ion-item>
         <ion-item>
-                <!-- <ion-label class="div-float-left div-font">Date Of Birth</ion-label> -->
             <div class="div-float-left div-font">Date Of Birth</div>
-            <!-- <ion-datetime class="div-float-right div-font" displayFormat="MMM DD, YYYY" [readonly]="disableDateTime" [(ngModel)]="user.dateOfBirth"></ion-datetime> -->
-            <div class="div-float-right div-font" (click)="editDOB()" *ngIf='user.birthday'>{{user.birthday}}</div>
+            <div class="div-float-right div-font" (click)="editDOB()" *ngIf='user.birthday'>{{user.birthday | date}}</div>
         </ion-item>
         <ion-item>
             <div class="div-float-left div-font">Country</div>

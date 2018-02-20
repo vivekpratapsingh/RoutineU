@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController,NavParams} from 'ionic-angular';
 import { UserService } from '../../../../services/user.service';
+import * as CalorieUpdater from '../goal-settings.common';
 
 @Component({
     template : `<ion-list>
@@ -21,7 +22,8 @@ export class UpdateCurrentWeightComponent{
     user : any;
     constructor(private viewCtrl : ViewController,private navParams : NavParams,private userService : UserService){
         this.user = this.navParams.data.user;
-        this.currentWeight = this.user.weight;
+        console.log(this.user);
+        this.currentWeight = this.user.weight.current.weight;
     }
 
     close(){
@@ -29,11 +31,14 @@ export class UpdateCurrentWeightComponent{
     }
 
     saveCurrentWeight(){
-        this.user.weight = this.currentWeight;
+        this.user.logs.weight.push({weight : this.user.weight.current.weight,added : this.user.weight.current.added});
+        this.user.weight.current.weight = this.currentWeight;
+        this.user.weight.current.added = new Date();
+        this.user = CalorieUpdater.updateUserCalories(this.user);
         this.userService.updateUserDetail(this.user,this.user._id)
-                            .subscribe(result => {});
+                            .subscribe(result => {this.viewCtrl.dismiss();});
         
         console.log(this.user);                    
-        this.viewCtrl.dismiss();
+        
     }
 }

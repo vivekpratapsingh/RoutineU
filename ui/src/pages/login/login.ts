@@ -29,10 +29,10 @@ export class LoginComponent {
                 this.dataService.sharedData = result;
                 if(result.infoRequired){
                     console.log(true);
-                    this.router.navigate(['/home',data.userID.id]);
+                    this.router.navigate(['/welcome',data.userID.id]);
                 }
                 else{
-                    this.router.navigate(['/welcome',data.userID.id]);
+                    this.router.navigate(['/home',data.userID.id]);
                 }
                 
             });

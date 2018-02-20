@@ -47,23 +47,26 @@ export class WelcomeComponent implements OnInit {
         this.weekly_goals = Collections.WeeklyGoal;
         if (this.user.logs != undefined && this.user.logs.goal != undefined &&
             this.user.logs.goal.weight[0] != undefined && this.user.logs.goal.weight[0] != undefined) {
-            this.goal_weight = this.user.logs.goal.weight[this.user.logs.goal.weight.length - 1];
+            this.goal_weight = this.user.logs.goal.weight[this.user.logs.goal.weight.length - 1].weight;
         }
         if (this.user.logs != undefined && this.user.logs.goal != undefined &&
             this.user.logs.goal.weekly_goal[0] != undefined && this.user.logs.goal.weekly_goal[0] != undefined) {
-            this.weekly_goal = this.user.logs.goal.weekly_goal[this.user.logs.goal.weekly_goal.length - 1];
+            this.weekly_goal = this.user.logs.goal.weekly_goal[this.user.logs.goal.weekly_goal.length - 1].goal;
         }
     }
 
     updateUserDetails() {
         this.user = this.localUser;
-        let a = new Date(this.starting_date);
-        this.user.weight.initial.added = new Date(a.setTime(a.getTime() - 1 * 86400000)).toLocaleDateString();
+        let activeIndex = this.slides.getActiveIndex();
+        if (activeIndex == 1) {
+            let a = new Date(this.starting_date);
+            this.user.weight.initial.added = new Date(a.setTime(a.getTime() - 1 * 86400000)).toLocaleDateString();
+        }
         if (this.slides.isEnd()) {
             this.user.logs.goal.weight.push({ weight: this.goal_weight });
         }
         console.log(this.user);
-        this.slides.slideTo(this.slides.getActiveIndex() + 1);
+        this.slides.slideTo(activeIndex + 1);
     }
 
     saveUserDetails() {
@@ -73,11 +76,11 @@ export class WelcomeComponent implements OnInit {
         let a = new Date(this.starting_date);
         this.user.weight.initial.added = new Date(a.setTime(a.getTime() - 1 * 86400000)).toLocaleDateString();
         console.log(this.user);
-        this.user.logs.goal.calories.push({calories : this.calorieGoal == undefined ? 0 : this.calorieGoal.goal});
+        this.user.logs.goal.calories.push({ calories: this.calorieGoal == undefined ? 0 : this.calorieGoal.goal });
 
         let macros = Calculator.getMacrosFromCalories(this.user.logs.goal.calories[this.user.logs.goal.calories.length - 1].calories,
             { carbohydrate: this.user.macros_percentage.carbohydrate, protein: this.user.macros_percentage.protein, fat: this.user.macros_percentage.fat });
-        this.user.logs.goal.macros.push({macros :{carbohydrate : macros.carbohydrate,protein:macros.protein,fat:macros.fat}});
+        this.user.logs.goal.macros.push({ macros: { carbohydrate: macros.carbohydrate, protein: macros.protein, fat: macros.fat } });
         this.user.logs.goal.weekly_goal.push({ goal: this.weekly_goal });
         this.user.logs.goal.weight.push({ weight: this.goal_weight });
         console.log(this.user);

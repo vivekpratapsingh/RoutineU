@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
-import {ViewController,NavParams} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ViewController, NavParams } from 'ionic-angular';
 import { UserService } from '../../../../services/user.service';
+import * as CalorieUpdater from '../goal-settings.common';
 
 @Component({
-    template : `<ion-list>
+    template: `<ion-list>
                 <ion-list-header>
                     Set Your Weekly goal
                     <ion-icon item-end ios="ios-close" md="md-close" (click)="close()"></ion-icon>
@@ -22,24 +23,27 @@ import { UserService } from '../../../../services/user.service';
                     <button ion-button small  (click)="saveWeeklyGoal()" style="float:right">Save</button>
             </ion-list>`
 })
-export class UpdateWeeklyGoalComponent{
+export class UpdateWeeklyGoalComponent {
 
-    weeklyGoal : any
-    user : any;
-    constructor(private viewCtrl : ViewController,private navParams : NavParams,private userService : UserService){
+    weeklyGoal: any;
+    user: any;
+    constructor(private viewCtrl: ViewController, private navParams: NavParams, private userService: UserService) {
         this.user = this.navParams.data.user;
-        this.weeklyGoal = this.user.goal.weekly_goal;
+        if (this.user.logs.goal.weekly_goal.length > 0) {
+            this.weeklyGoal = this.user.logs.goal.weekly_goal[this.user.logs.goal.weekly_goal.length - 1].goal
+        }
     }
 
-    close(){
+    close() {
         this.viewCtrl.dismiss();
     }
-    saveWeeklyGoal(){
-        this.user.goal.weekly_goal = this.weeklyGoal;
-        this.userService.updateUserDetail(this.user,this.user._id)
-                            .subscribe(result => {});
-        
-        console.log(this.user);                    
-        this.viewCtrl.dismiss();
+    saveWeeklyGoal() {
+        this.user.logs.goal.weekly_goal.push({ goal: this.weeklyGoal });
+        this.user = CalorieUpdater.updateUserCalories(this.user);
+        this.userService.updateUserDetail(this.user, this.user._id)
+            .subscribe(result => { this.viewCtrl.dismiss(); });
+
+        console.log(this.user);
+
     }
 }
