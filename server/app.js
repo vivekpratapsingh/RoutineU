@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-    passport = require('passport'),
+passport = require('passport'),
     express = require('express'),
     jwt = require('jsonwebtoken'),
     expressJwt = require('express-jwt'),
@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
     bodyParser = require('body-parser'),
     passportConfig = require('./common/passport'),
     user_routes = require('./routes/user'),
-    food_routes = require('./routes/food');
+    food_routes = require('./routes/food'),
+    exercise_routes = require('./routes/exercise');
 
 //set up mongoose
 mongoose.connect('mongodb://127.0.0.1:27017');
@@ -66,18 +67,18 @@ var sendToken = function (req, res) {
 
 router.route('/facebook')
     .post(
-    passport.authenticate('facebook-token', { session: false }), function (req, res, next) {
-        if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
-        }
+        passport.authenticate('facebook-token', { session: false }), function (req, res, next) {
+            if (!req.user) {
+                return res.send(401, 'User Not Authenticated');
+            }
 
-        // prepare token for API
-        req.auth = {
-            id: req.user.id
-        };
+            // prepare token for API
+            req.auth = {
+                id: req.user.id
+            };
 
-        next();
-    }, generateToken, sendToken);
+            next();
+        }, generateToken, sendToken);
 
 //token handling middleware
 var authenticate = expressJwt({
@@ -115,11 +116,12 @@ router.route('/me')
     .get(authenticate, getCurrentUser, getOne);
 
 app.use('/auth', router);
-app.use('/users',authenticate,user_routes);
-app.use('/foods',authenticate,food_routes);
+app.use('/users', authenticate, user_routes);
+app.use('/foods', authenticate, food_routes);
+app.use('/exercises', authenticate, exercise_routes);
 const port = 3000;
 
-app.listen(port,function(){
+app.listen(port, function () {
     console.log('Server started @ ' + port);
 });
 

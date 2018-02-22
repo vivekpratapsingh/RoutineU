@@ -1,0 +1,13 @@
+.exercise-search{
+    .exercise-search-add{
+        ion-label{
+            justify-content: center;
+            display: flex;
+        }
+        button{
+            height: 40px;
+            width: 100%;
+            font-size: 1.6rem;
+        }
+    }
+}

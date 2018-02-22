@@ -33,7 +33,11 @@ import {MacrosHomeComponent} from '../pages/macros/macros.home';
 import { WelcomeModule } from '../pages/welcome/welcome-module';
 import { DataService } from '../services/data.serveice';
 import { FoodService } from '../services/food.service';
-
+import { ExerciseService } from '../services/exercise.service';
+import { ExerciseSearchComponent } from '../pages/exercise/exercise-search/exercise.search';
+import { AddExerciseMasterComponent } from '../pages/exercise/exercise-add-master/exercise-add.master';
+import { AddExerciseLogComponent } from '../pages/exercise/exercise-add-log/exercise-add.log';
+import {AddExerciseLogSetComponent} from '../pages/exercise/exercise-add-log/exercise-add-set/exercise-add.set';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,11 @@ import { FoodService } from '../services/food.service';
     DiaryComponent,
     FoodSearchComponent,
     WaterAddComponent,
-    MacrosHomeComponent
+    MacrosHomeComponent,
+    ExerciseSearchComponent,
+    AddExerciseMasterComponent,
+    AddExerciseLogComponent,
+    AddExerciseLogSetComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +91,11 @@ import { FoodService } from '../services/food.service';
     DiaryComponent,
     FoodSearchComponent,
     WaterAddComponent,
-    MacrosHomeComponent
+    MacrosHomeComponent,
+    ExerciseSearchComponent,
+    AddExerciseMasterComponent,
+    AddExerciseLogComponent,
+    AddExerciseLogSetComponent
   ],
   providers: [
     StatusBar,
@@ -91,6 +103,7 @@ import { FoodService } from '../services/food.service';
     UserService,
     DataService,
     FoodService,
+    ExerciseService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

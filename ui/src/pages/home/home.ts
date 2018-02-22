@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { NavController } from 'ionic-angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ExerciseSearchComponent } from '../exercise/exercise-search/exercise.search';
 
 @Component({
     templateUrl: 'home.html',
     styleUrls: ['/home.scss']
 })
 export class HomeComponent {
-    // public currentUser: any = {};
 
-    // constructor(private userService: UserService, private router: Router) { }
+    constructor(private navCtrl: NavController, private route: ActivatedRoute) { }
 
-    // ngOnInit() {
-    //     this.userService.getCurrentUser().then(profile => this.currentUser = profile)
-    //         .catch(() => this.currentUser = {});
-    // }
-
-    // logout() {
-    //     this.userService.logout();
-    //     this.router.navigate(['/welcome']);
-    // }
+    addExercise() {
+        this.route.params.subscribe(params => {
+            console.log(params);
+            let userId = params['id'];
+            console.log(userId);
+            if (userId != '' || userId != undefined) {
+                this.navCtrl.push(ExerciseSearchComponent, { userId: userId, date: Date.now() })
+            }
+        })
+    }
 
 }

@@ -1,0 +1,52 @@
+<ion-header class="food-add-header">
+    <ion-toolbar>
+        <ion-navbar>
+            <ion-title>{{title}}</ion-title>
+            <ion-buttons end>
+                <button ion-button icon-only>
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngIf='exercise'>
+        <ion-list>
+            <ion-list-header>
+                <ion-toolbar>
+                    {{exercise.name}}
+                    <ion-buttons end>
+                        <button ion-button icon-left color="primary" (click)="addSet()">
+                            <ion-icon name="add"></ion-icon>Set
+                        </button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-list-header>
+            <ion-item>
+                <div style="float:left">Type</div>
+                <div style="float:right">{{exercise.type}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Equipment</div>
+                <div style="float:right">{{exercise.equipment}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Level</div>
+                <div style="float:right">{{exercise.level}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Primary</div>
+                <div style="float:right">{{exercise.primary_muscle.toString()}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Secondary</div>
+                <div style="float:right">{{exercise.secondary_muscle.toString()}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Calories Burned</div>
+                <div style="float:right">{{exercise.calories_burned}}</div>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+</ion-content>

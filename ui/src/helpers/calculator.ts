@@ -69,6 +69,7 @@ export class Calculator {
         let carbs = Math.round((calories * macros.carbohydrate) / 400);
         let protein = Math.round((calories * macros.protein) / 400);
         let fat = Math.round((calories * macros.fat) / 900);
+        console.log({ carbohydrate: carbs, protein: protein, fat: fat });
         return { carbohydrate: carbs, protein: protein, fat: fat };
     }
 }

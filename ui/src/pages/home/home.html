@@ -39,4 +39,23 @@
             <ion-label>Say something....</ion-label>
         </ion-item>
     </ion-card>
+    <ion-fab right bottom>
+        <button ion-fab color="primary">
+            <ion-icon name="add"></ion-icon>
+        </button>
+        <ion-fab-list side="left">
+            <button ion-fab>
+                <ion-icon name="water"></ion-icon>
+            </button>
+            <button ion-fab (click)="addExercise()">
+                <ion-icon name="body"></ion-icon>
+            </button>
+            <button ion-fab>
+                <ion-icon name="logo-vimeo"></ion-icon>
+            </button>
+            <button ion-fab>
+                <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
