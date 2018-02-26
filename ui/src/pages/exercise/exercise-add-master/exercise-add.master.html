@@ -1,0 +1,83 @@
+<ion-header class="food-add-header">
+    <ion-toolbar>
+        <ion-navbar>
+            <ion-title>Create Exercise</ion-title>
+            <ion-buttons end>
+                <button icon-only ion-button small [disabled]="!form.valid" (click)="addExerciseMaster(form.value)">
+                    <ion-icon name="checkmark"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <form [formGroup]="form">
+            <ion-item>
+                <ion-input type="text" formControlName="name" placeholder="Name"></ion-input>
+                <span *ngIf="form.controls['name']?.hasError('required') && form.controls['name']?.touched"> name is required</span>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['name']?.valid && form.controls['name']?.touched ">
+                <p *ngIf="form.controls['name']?.hasError('required') && form.controls['name']?.touched" style="color:red">name is required</p>
+                <p *ngIf="form.controls['name']?.hasError('minlength') && form.controls['name']?.touched" style="color:red">min length 3 required</p>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text" formControlName="description" placeholder="Description"></ion-input>
+                <p *ngIf="form.controls['description']?.hasError('required') && form.controls['description']?.touched" style="color:red">description is required</p>
+                <p *ngIf="form.controls['description']?.hasError('minlength') && form.controls['description']?.touched" style="color:red">min length 3 required</p>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['description']?.valid && form.controls['description']?.touched ">
+                <p *ngIf="form.controls['description']?.hasError('required') && form.controls['description']?.touched" style="color:red">description is required</p>
+                <p *ngIf="form.controls['description']?.hasError('minlength') && form.controls['description']?.touched" style="color:red">min length 3 required</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-select formControlName="type">
+                    <ion-option value="Strength">Strength</ion-option>
+                    <ion-option value="Cardio">Cardio</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['type']?.valid && form.controls['type']?.touched ">
+                <p *ngIf="form.controls['type']?.hasError('required') && form.controls['type']?.touched" style="color:red">type is required</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>Primary Muscle</ion-label>
+                <ion-select multiple="true" formControlName="primary_muscle">
+                    <ion-option *ngFor="let muscle of muscles" [value]="muscle">{{muscle}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['primary_muscle']?.valid && form.controls['primary_muscle']?.touched ">
+                <p *ngIf="form.controls['primary_muscle']?.hasError('required') && form.controls['primary_muscle']?.touched" style="color:red">primary muscle is required</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>Secondary Muscle</ion-label>
+                <ion-select multiple="true" formControlName="secondary_muscle">
+                    <ion-option *ngFor="let muscle of muscles" [value]="muscle">{{muscle}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Equipment</ion-label>
+                <ion-select formControlName="equipment">
+                    <ion-option *ngFor="let equipment of equipments" [value]="equipment">{{equipment}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['equipment']?.valid && form.controls['equipment']?.touched ">
+                <p *ngIf="form.controls['equipment']?.hasError('required') && form.controls['equipment']?.touched" style="color:red">equipment is required</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>Level</ion-label>
+                <ion-select formControlName="level">
+                    <ion-option value="Beginner">Beginner</ion-option>
+                    <ion-option value="Intermediate">Intermediate</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!form.controls['level']?.valid && form.controls['level']?.touched ">
+                <p *ngIf="form.controls['level']?.hasError('required') && form.controls['level']?.touched" style="color:red">level is required</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>Calorie Burned</ion-label>
+                <ion-input type="number" [disabled]="form.controls['type']?.value == 'Strength'" formControlName="calorie_burned"></ion-input>
+            </ion-item>
+        </form>
+    </ion-list>
+</ion-content>

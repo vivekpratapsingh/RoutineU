@@ -92,23 +92,48 @@ var UserSchema = new Schema({
                 added: { type: Date, default: Date.now() }
             }]
         },
-        diet: [{
-            food: { type: mongoose.Schema.Types.ObjectId, ref: 'Food', required: true },
-            servings: {
-                size: {
-                    amount: { type: Number, require: true },
-                    unit: { type: String, default: 'gm' }
+        diet: {
+            type: [{
+                food: { type: mongoose.Schema.Types.ObjectId, ref: 'Food', required: true },
+                servings: {
+                    size: {
+                        amount: { type: Number, require: true },
+                        unit: { type: String, default: 'gm' }
+                    },
+                    quantity: { type: Number, required: true }
                 },
-                quantity: { type: Number, required: true }
-            },
-            added: { type: Date, default: Date.now() }
-        }]
+                added: { type: Date, default: Date.now() }
+            }],
+            select: false
+        },
+        exercise: {
+            type: [{
+                exercise: { type: mongoose.Schema.Types.ObjectId, ref: 'Exercise', required: true },
+                intensity: [
+                    {
+                        set: { type: Number, require: true },
+                        reps: { type: Number, require: true },
+                        weight: {
+                            amount: { type: Number },
+                            unit: { type: String, enum: ['kg', 'lbs'] }
+                        },
+                        rest: {
+                            amount: { type: Number },
+                            unit: { type: String, enum: ['sec', 'min'] }
+                        }
+                    }
+                ],
+                added: { type: Date, default: Date.now() }
+            }],
+            select: false
+        }
     },
     activity_level: {
         type: String, default: 'Lightly Active', enum: [
             'Not Very Active', 'Lightly Active', 'Active', 'Very Active'
         ]
     }
+
 }, schemaOptions);
 
 UserSchema.virtual('full_name').get(function () {
@@ -141,8 +166,8 @@ UserSchema.virtual('infoRequired').get(function () {
 });
 
 UserSchema.virtual('current_weight').get(function () {
-    if (this.logs != undefined && this.logs.goal != undefined && 
-        this.logs.goal.weight[0] != undefined && this.logs.goal.weight.length !=0) {
+    if (this.logs != undefined && this.logs.goal != undefined &&
+        this.logs.goal.weight[0] != undefined && this.logs.goal.weight.length != 0) {
         return this.logs.goal.weight[this.logs.goal.weight.length - 1].weight;
     }
     else {

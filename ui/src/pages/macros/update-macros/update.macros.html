@@ -6,22 +6,22 @@
         </ion-list-header>
         <ion-item>
             <ion-label> Carbs ({{carbs.amount}}g)</ion-label>
-            <ion-select [(ngModel)]="carbs.percentage">
+            <ion-select [(ngModel)]="carbs.percentage" (ionChange)="updateMacros()">
                 <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label> Protein ({{protein.amount}}g)</ion-label>
-            <ion-select [(ngModel)]="protein.percentage">
+            <ion-select [(ngModel)]="protein.percentage" (ionChange)="updateMacros()">
                     <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label> Fat ({{fat.amount}}g)</ion-label>
-            <ion-select [(ngModel)]="fat.percentage">
+            <ion-select [(ngModel)]="fat.percentage" (ionChange)="updateMacros()">
                     <ion-option *ngFor="let num of nums" [value]="num">{{num}}%</ion-option>
             </ion-select>
         </ion-item>
-        <button ion-button small (click)="updateMacros()" [disabled]="getInt(carbs.percentage) + getInt(protein.percentage) + getInt(fat.percentage) != 100" style="float:right">Save</button>
+        <button ion-button small (click)="saveMacros()" [disabled]="getInt(carbs.percentage) + getInt(protein.percentage) + getInt(fat.percentage) != 100" style="float:right">Save</button>
     </ion-list>
 </ion-content>

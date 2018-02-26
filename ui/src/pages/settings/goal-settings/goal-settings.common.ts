@@ -10,4 +10,3 @@ export function updateUserCalories(user: any): any {
     user.logs.goal.macros.push({ macros: { carbohydrate: macros.carbohydrate, protein: macros.protein, fat: macros.fat } });
     return user;
 }
-

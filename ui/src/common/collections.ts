@@ -36,4 +36,16 @@ export class Collections {
     static getActivityLevel() : any{
         return this.ActivityLevel;
     }
+
+    static Muscles : any = [
+        "Calves","Quadriceps","Hamstrings","Gluteus","Hips other","Lower back","Lats","Trapezius","Abdominals","Pectorals",
+        "Deltoids","Triceps","Biceps","Forearms"
+    ];
+
+    static Equipments : any = [
+        "Dumbbell","Barbell","Smith Machine","Bench Press Machine","Body weight","Standing Calf Raise Machine","Kettlebells",
+        "Leg Press Machine","Hack Squat Machine","Trapbar","Cable Machine","Leg Extension Machine","Leg Curl Machine","Seated Calf Raise Machine",
+        "Pulldown Machine","Chin-up Bar","Chin-up Machine","T-bar Machine","Lateral Raise Machine","Triceps Extension Machine","Crunch Machine",
+        "Back Extension Machine"
+    ];
 }

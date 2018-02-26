@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Search Exercise</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="exercise-search">
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+        <ion-item *ngIf="isError">
+            <h2>No Exercise found</h2>
+        </ion-item>
+        <ion-item *ngFor="let item of items" (click)="addExercise(item)">
+            <div style="float:left">
+                <ion-row>
+                    <h3>{{item.name}} - {{item.equipment}}</h3>
+                </ion-row>
+                <ion-row>
+                    <p>{{item.primary_muscle.toString()}},{{item.equipment}}</p>
+                </ion-row>
+            </div>
+            <div style="float:right">
+                <ion-row>
+                    {{item.calorie_burned == 0 ? 'N/A' : item.calorie_burned + 'KCal'}}
+                </ion-row>
+                <ion-row>
+                    burned per min
+                </ion-row>
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-card class="exercise-search-add">
+        <ion-item style="border:none;position:absolute;bottom:0px;justify-content:center;align-items:center" class="card-list-item-font">
+            <button ion-button color="light" (click)="addNewExercise()">Add New Exercise</button> 
+        </ion-item>
+    </ion-card>
+</ion-content>
