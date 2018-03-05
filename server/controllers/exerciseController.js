@@ -19,8 +19,9 @@ exports.get_exercise = function (req, res, next) {
 
 exports.get_exercise_by_name = function (req, res, next) {
     let query = req.query.name;
+    console.log(query);
     if (query != "") {
-        Exercise.findOne({ name: query }, function (err, exercises) {
+        Exercise.find({ $text :{$search : query} }, function (err, exercises) {
             if (err) {
                 console.log(err);
                 next(err);
@@ -94,3 +95,25 @@ exports.add_exercise = [
         }
     }
 ]
+
+const get_exercise_id = function(id,next){
+    Exercise.findById(id).populate('_users').exec(function(err,result){
+        if(err){
+            next(err);
+        }
+        return result;
+    });
+}
+
+exports.get_exercise_id = get_exercise_id;
+
+const update_exercise = function(id,exercise,next){
+    Exercise.findByIdAndUpdate(id,{$set : exercise},{new :true},function(err,result){
+        if(err){
+            next(err);
+        }
+        return result;
+    })
+}
+
+exports.update_exercise = update_exercise;

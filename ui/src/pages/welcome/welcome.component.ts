@@ -37,8 +37,10 @@ export class WelcomeComponent implements OnInit {
         if (this.user) {
             let b = new Date(this.user.birthday);
             this.birthday = new Date(b.setTime(b.getTime() + 1 * 86400000)).toISOString();
-            let a = new Date(this.user.weight.initial.added);
-            this.starting_date = new Date(a.setTime(a.getTime() + 1 * 86400000)).toISOString();
+            if (this.user.weight != undefined && this.user.weight.initial != undefined) {
+                let a = new Date(this.user.weight.initial.added);
+                this.starting_date = new Date(a.setTime(a.getTime() + 1 * 86400000)).toISOString();
+            }
         }
         this.localUser = this.user;
         this.height_numbers = Collections.generateIntNumbers(250);

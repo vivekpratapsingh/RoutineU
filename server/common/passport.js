@@ -11,7 +11,7 @@ module.exports = function () {
         function (accessToken, refreshToken, profile, done) {
             return User.findOne({
                 'facebookProvider.id': profile.id
-            }, function (err, user) {
+            }).populate('logs.exercise.exercise', 'name').populate('logs.diet.food').exec(function (err, user) {
                 //no user was found, lets create new user
                 if (!user) {
                     var newUser = new User({
@@ -19,6 +19,15 @@ module.exports = function () {
                         facebookProvider: {
                             id: profile.id,
                             token: accessToken
+                        },
+                        logs: {
+                            water: [],
+                            weight: [],
+                            weekly_goal: [],
+                            calories: [],
+                            macros: [],
+                            diet: [],
+                            exercise: []
                         }
                     });
                     newUser.save(function (error, savedUser) {

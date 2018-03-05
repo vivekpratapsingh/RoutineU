@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavParams, PopoverController, NavController } from 'ionic-angular';
+import { NavParams, PopoverController, NavController, Events, ToastController } from 'ionic-angular';
 import { AddFoodQuantityComponent } from './food-add-quantity/food-add.quantity';
 import { DataService } from '../../../services/data.serveice';
 import { Calculator } from '../../../helpers/calculator';
+import { UserService } from '../../../services/user.service';
+import { DiaryComponent } from '../../diary/diary';
 
 @Component({
     templateUrl: 'food.add.html',
@@ -17,8 +19,9 @@ export class AddFoodComponent {
     user: any;
     addedFood: any;
     foodItem: any;
-    constructor(private popoverCtrl: PopoverController, private navParams: NavParams,
-        private navCtrl: NavController, private sharedService: DataService) {
+    constructor(private popoverCtrl: PopoverController, private navParams: NavParams, private events: Events,
+        private navCtrl: NavController, private sharedService: DataService, private userService: UserService,
+        private toastCtrl: ToastController) {
         if (this.navParams.data.foodItem != undefined) {
             this.food = this.navParams.data.foodItem;
         }
@@ -85,6 +88,59 @@ export class AddFoodComponent {
         }
         else {
             this.title = "Edit Entry";
+        }
+    }
+
+    addFood() {
+        if (this.addedFood._id != undefined) {
+            this.addedFood.servings = this.foodItem.servings;
+            this.userService.updateDietLog(this.addedFood).subscribe(
+                result => {
+                    let toast = this.toastCtrl.create({
+                        message: 'Food logged successfully !',
+                        duration: 2000,
+                        position: 'top'
+                    });
+                    toast.present();
+                    this.events.publish('user-detail', result);
+                    this.navCtrl.push(DiaryComponent);
+                },
+                error => {
+                    let toast = this.toastCtrl.create({
+                        message: 'Could not log food !',
+                        duration: 2000,
+                        position: 'top'
+                    });
+                    toast.present();
+                }
+            );
+        }
+        else if (this.food != undefined) {
+            let food = {
+                food: this.foodItem.food._id,
+                mealOption: this.mealOption,
+                servings: this.foodItem.servings
+            };
+            this.userService.addDietLog(food).subscribe(
+                result => {
+                    let toast = this.toastCtrl.create({
+                        message: 'Food logged successfully !',
+                        duration: 2000,
+                        position: 'top'
+                    });
+                    toast.present();
+                    this.events.publish('user-detail', result);
+                    this.navCtrl.push(DiaryComponent);
+                },
+                error => {
+                    let toast = this.toastCtrl.create({
+                        message: 'Could not log food !',
+                        duration: 2000,
+                        position: 'top'
+                    });
+                    toast.present();
+                }
+            )
         }
     }
 }

@@ -9,18 +9,18 @@ import { AddExerciseMasterComponent } from '../exercise-add-master/exercise-add.
     styleUrls: ['/exercise.search.scss']
 })
 export class ExerciseSearchComponent {
-    userId: any;
+    user: any;
     items: any;
     isError: boolean;
     date : any;
     constructor(private navParams: NavParams, private exerciseService: ExerciseService,
                 private navCtrl : NavController,private toastCtrl : ToastController) {
-        this.userId = this.navParams.data.userId;
+        this.user = this.navParams.data.user;
         this.date = this.navParams.data.date;
     }
 
-    addFood(exercise) {
-        this.navCtrl.push(AddExerciseLogComponent, { userId: this.userId,  date: this.date, exercise: exercise });
+    addExercise(exercise) {
+        this.navCtrl.push(AddExerciseLogComponent, { user: this.user,  date: this.date, exercise: exercise });
     }
 
     getItems(ev: any) {

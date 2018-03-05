@@ -23,7 +23,7 @@ export class ExerciseService {
             headers: headers,
             search: params
         });
-        return this.http.get(this.baseUrl + 'exercises/', options)
+        return this.http.get(this.baseUrl + 'exercises/' + 'name', options)
             .map((res: any) => res.json())
             .catch((error: any) => {
                 return Observable.throw(error.status);
@@ -43,5 +43,22 @@ export class ExerciseService {
             .catch((error: any) => {
                 return Observable.throw(error.status);
             });
+    }
+
+    addExerciseLog(exerciseLog: any): Observable<any> {
+        let headers: Headers = new Headers();
+        let userId = localStorage.getItem('id');
+        headers.append('x-auth-token', localStorage.getItem('id_token'));
+        headers.append('Content-Type', 'application/json');
+        let options: RequestOptions = new RequestOptions({
+            headers: headers
+        });
+        return this.http.post(this.baseUrl + 'users/' + userId + '/logs' + '/exercises', exerciseLog, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.status));
+        // .map((res: any) => res.json())
+        // .catch((error: any) => {
+        //     return Observable.throw(error.status);
+        // });
     }
 }

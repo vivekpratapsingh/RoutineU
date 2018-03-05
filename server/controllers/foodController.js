@@ -39,3 +39,24 @@ exports.get_food_by_name = function(req,res,next){
         res.send('query required');
     }
 }
+
+const update_food = function(id,food,next){
+    Food.findByIdAndUpdate(id,food,function(err,result){
+        if(err){
+            next(err);
+        }
+        return result;
+    })
+}
+
+exports.update_food = update_food;
+
+const get_food_id = function(id,next){
+    Food.findById(id,function(err,food){
+        if(err){
+            next(err);
+        }
+        return food;
+    })
+}
+exports.get_food_id = get_food_id;

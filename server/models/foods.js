@@ -21,19 +21,23 @@ const FoodSchema = new Schema({
                     trans: { type: Number, default: 0 }
                 }
             },
-            cholesterol: { type: Number, require: true, default: 0},
-            sodium: { type: Number, require: true, default: 0},
-            potassium: {type: Number, require: true, default: 0},
-            carbohydrates: {type: Number, require: true, default: 0},
-            dietry_fiber: {type: Number, require: true, default: 0},
-            sugar: {type: Number, require: true, default: 0 },
-            protein: {type: Number, require: true, default: 0},
-            vitamin_a: {type: Number, require: true, default: 0},
-            vitamin_c: {type: Number, require: true, default: 0},
-            calcium: {type: Number, require: true, default: 0},
-            iron: {type: Number, require: true, default: 0}
+            cholesterol: { type: Number, require: true, default: 0 },
+            sodium: { type: Number, require: true, default: 0 },
+            potassium: { type: Number, require: true, default: 0 },
+            carbohydrates: { type: Number, require: true, default: 0 },
+            dietry_fiber: { type: Number, require: true, default: 0 },
+            sugar: { type: Number, require: true, default: 0 },
+            protein: { type: Number, require: true, default: 0 },
+            vitamin_a: { type: Number, require: true, default: 0 },
+            vitamin_c: { type: Number, require: true, default: 0 },
+            calcium: { type: Number, require: true, default: 0 },
+            iron: { type: Number, require: true, default: 0 }
         }
-    }]
-},{toJSON : {virtuals : true}});
+    }],
+    _users: {
+        type: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true }],
+        select: false
+    }
+}, { toJSON: { virtuals: true } });
 
 module.exports = mongoose.model('Food', FoodSchema);

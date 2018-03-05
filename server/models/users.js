@@ -102,9 +102,9 @@ var UserSchema = new Schema({
                     },
                     quantity: { type: Number, required: true }
                 },
+                mealOption : {type: String,required : true ,enum : ['Breakfast','Lunch','Dinner','Snacks']},
                 added: { type: Date, default: Date.now() }
-            }],
-            select: false
+            }]
         },
         exercise: {
             type: [{
@@ -124,8 +124,13 @@ var UserSchema = new Schema({
                     }
                 ],
                 added: { type: Date, default: Date.now() }
-            }],
-            select: false
+            }]
+        },
+        water: {
+            type: [{
+                amount: { type: Number, require: true },
+                added: { type: Date, default: Date.now() }
+            }]
         }
     },
     activity_level: {

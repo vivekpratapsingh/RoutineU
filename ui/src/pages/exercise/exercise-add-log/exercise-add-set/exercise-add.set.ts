@@ -17,10 +17,6 @@ import { Collections } from '../../../../common/collections';
                         <ion-input type="number" [(ngModel)]="reps"></ion-input>
                     </ion-item>
                     <ion-item style="font-size:1.4rem">
-                        <ion-label fixed># of Reps</ion-label>
-                        <ion-input type="number" [(ngModel)]="reps"></ion-input>
-                    </ion-item>
-                    <ion-item style="font-size:1.4rem">
                         <ion-label fixed>Weight</ion-label>
                         <ion-select [(ngModel)]="weight.amount">
                             <ion-option *ngFor="let num of nums" [value]="num">{{num}}</ion-option>
@@ -46,12 +42,15 @@ import { Collections } from '../../../../common/collections';
 export class AddExerciseLogSetComponent {
     nums: any;
     weight: any;
-    exerciseIntensity: any;
-    sets : number;
-    reps : number;
-    rest : any;
+    exerciseSet: Array<any>;
+    sets: number;
+    reps: number;
+    rest: any;
     constructor(private navParams: NavParams, private viewCtrl: ViewController) {
-        this.exerciseIntensity = this.navParams.data.exerciseIntensity;
+        this.exerciseSet = this.navParams.data.exerciseSet;
+        if (this.exerciseSet == undefined) {
+            this.exerciseSet = [];
+        }
         this.weight = {
             amount: 0,
             unit: 'kg'
@@ -70,12 +69,14 @@ export class AddExerciseLogSetComponent {
     }
 
     addSet() {
-        this.exerciseIntensity.push({
-            set : this.sets,
-            reps : this.reps,
-            weight : this.weight,
-            rest : this.rest
-        });
-        this.viewCtrl.dismiss();
+        if (this.sets != 0 && this.reps != 0 && this.weight.amount != 0) {
+            this.exerciseSet.push({
+                set: this.sets,
+                reps: this.reps,
+                weight: this.weight,
+                rest: this.rest
+            });
+            this.viewCtrl.dismiss();
+        }
     }
 }

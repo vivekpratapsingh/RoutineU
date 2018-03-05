@@ -93,7 +93,7 @@ var authenticate = expressJwt({
 });
 
 var getCurrentUser = function (req, res, next) {
-    User.findById(req.auth.id, function (err, user) {
+    User.findById(req.auth.id).populate('logs.exercise.exercise','name').populate('logs.diet.food').exec(function (err, user) {
         if (err) {
             next(err);
         } else {

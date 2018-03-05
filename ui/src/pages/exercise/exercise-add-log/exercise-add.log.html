@@ -3,7 +3,7 @@
         <ion-navbar>
             <ion-title>{{title}}</ion-title>
             <ion-buttons end>
-                <button ion-button icon-only>
+                <button ion-button icon-only (click)="addExercise()">
                     <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
                 </button>
             </ion-buttons>
@@ -46,6 +46,28 @@
             <ion-item>
                 <div style="float:left">Calories Burned</div>
                 <div style="float:right">{{exercise.calories_burned}}</div>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <ion-card *ngIf='exerciseSet'>
+        <ion-list>
+            <ion-item *ngFor="let exerciseset of exerciseSet">
+                <div style="float:left">
+                    <ion-row>
+                        <h3>{{exercise.name}}</h3>
+                    </ion-row>
+                    <ion-row>
+                        <p>{{exerciseset.set}} sets,{{exerciseset.reps}} reps,{{exerciseset.weight.amount}} {{exerciseset.weight.unit}},{{exerciseset.rest.amount}} {{exerciseset.rest.unit}}</p>
+                    </ion-row>
+                </div>
+                <!-- <div style="float:right">
+                    <ion-row>
+                        {{item.calorie_burned == 0 ? 'N/A' : item.calorie_burned + 'KCal'}}
+                    </ion-row>
+                    <ion-row>
+                        burned per min
+                    </ion-row>
+                </div> -->
             </ion-item>
         </ion-list>
     </ion-card>

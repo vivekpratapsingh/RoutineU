@@ -24,6 +24,12 @@ const ExerciseSchema = new Schema({
     level: { type: String, require: true },
     calorie_burned: { type: Number, default: 0, required: true },
     addedby: { type: mongoose.SchemaTypes.ObjectId, select: false },
+    _users : {
+        type : [{type : mongoose.Schema.Types.ObjectId, ref: 'User'}],
+        select : false,
+    }
 }, schemaOptions);
+
+ExerciseSchema.index({name : 'text',description:'text',primary_muscle:'text'});
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);
