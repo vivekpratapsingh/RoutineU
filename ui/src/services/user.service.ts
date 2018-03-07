@@ -129,10 +129,40 @@ export class UserService {
         let options: RequestOptions = new RequestOptions({
             headers: headers
         });
-        return this.http.post(this.baseUrl + 'users/' + userId + 'logs/water', water, options)
+        return this.http.post(this.baseUrl + 'users/' + userId + '/logs/water', water, options)
             .map((res: any) => res.json())
             .catch((error: any) => Observable.throw(error.status));
 
+    }
+
+    //update water log
+    updateWaterLog(water: any): Observable<any> {
+        let headers: Headers = new Headers();
+        let userId = localStorage.getItem('id');
+        headers.append('x-auth-token', localStorage.getItem('id_token'));
+        headers.append('Content-Type', 'application/json');
+        let options: RequestOptions = new RequestOptions({
+            headers: headers
+        });
+        return this.http.put(this.baseUrl + 'users/' + userId + '/logs/water', water, options)
+            .map((res: any) => res.json())
+            .catch((error: any) => Observable.throw(error.status));
+
+    }
+
+    //remove water log
+    removeWaterLog(id: any): Observable<any> {
+        console.log(id);
+        let headers: Headers = new Headers();
+        let userId = localStorage.getItem('id');
+        headers.append('x-auth-token', localStorage.getItem('id_token'));
+        headers.append('Content-Type', 'application/json');
+        let options: RequestOptions = new RequestOptions({
+            headers: headers
+        });
+        return this.http.delete(this.baseUrl + 'users/' + userId + '/logs/water/'+id, options)
+            .map((res: any) => res.json())
+            .catch((error: any) => Observable.throw(error.status));
     }
 
     //add diet log
@@ -150,7 +180,7 @@ export class UserService {
     }
 
     //update diet log
-    updateDietLog(food : any): Observable<any> {
+    updateDietLog(food: any): Observable<any> {
         let headers: Headers = new Headers();
         let userId = localStorage.getItem('id');
         headers.append('x-auth-token', localStorage.getItem('id_token'));

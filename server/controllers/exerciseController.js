@@ -101,7 +101,7 @@ const get_exercise_id = function(id,next){
         if(err){
             next(err);
         }
-        return result;
+        return next(result);
     });
 }
 

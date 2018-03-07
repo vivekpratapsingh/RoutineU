@@ -8,7 +8,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="diary-component" >
+<ion-content class="diary-component">
   <!--chnage day-->
   <ion-card style="margin-top:0%">
     <ion-row>
@@ -184,16 +184,24 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-item>
-      <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" *ngFor='let water of userLog.water'>
-        <div style="float:left">
-          <ion-row>
-            <h3>Water</h3>
-          </ion-row>
-          <ion-row>
-            <p>{{water.amount}}</p>
-          </ion-row>
-        </div>
-      </ion-item>
+      <ion-item-sliding *ngFor='let water of userLog.water'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateWaterEntry(water)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>Water</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{water.amount}} ml</p>
+            </ion-row>
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeWaterLog(water._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-card>
 
@@ -211,18 +219,26 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-item>
-      <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" *ngFor="let exercise of userLog.exercise">
-        <div style="float:left">
-          <ion-row>
-            <h3>{{exercise.exercise.name}}</h3>
-          </ion-row>
-          <ion-row *ngFor="let exerciseset of exercise.intensity">
-            <p>{{exerciseset.set}} sets,{{exerciseset.reps}} reps,{{exerciseset.weight.amount}} {{exerciseset.weight.unit}},{{exerciseset.rest.amount}}
-              {{exerciseset.rest.unit}}
-            </p>
-          </ion-row>
-        </div>
-      </ion-item>
+      <ion-item-sliding *ngFor="let exercise of userLog.exercise">
+        <ion-item *ngIf='exercise.intensity.length > 0' class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)="updateExerciseLog(exercise)">
+          <div style="float:left">
+            <ion-row>
+              <h3>{{exercise.exercise.name}}</h3>
+            </ion-row>
+            <ion-row *ngFor="let exerciseset of exercise.intensity">
+              <p>{{exerciseset.set}} sets,{{exerciseset.reps}} reps,{{exerciseset.weight.amount}} {{exerciseset.weight.unit}},{{exerciseset.rest.amount}}
+                {{exerciseset.rest.unit}}
+              </p>
+            </ion-row>
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeExerciseLog(exercise._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-card>
 </ion-content>

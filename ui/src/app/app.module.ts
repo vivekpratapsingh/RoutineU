@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
-import {HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { MyApp } from './app.component';
 
 
-import {LoginComponent} from '../pages/login/login';
+import { LoginComponent } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,8 +28,8 @@ import { AddFoodComponent } from '../pages/food/food-add/food.add';
 import { AddFoodQuantityComponent } from '../pages/food/food-add/food-add-quantity/food-add.quantity';
 import { DiaryComponent } from '../pages/diary/diary';
 import { FoodSearchComponent } from '../pages/food/food-search/food.search';
-import { WaterAddComponent } from '../pages/food/water-add/water.add';
-import {MacrosHomeComponent} from '../pages/macros/macros.home';
+import { WaterAddComponent } from '../pages/water/water-add/water.add';
+import { MacrosHomeComponent } from '../pages/macros/macros.home';
 import { WelcomeModule } from '../pages/welcome/welcome-module';
 import { DataService } from '../services/data.serveice';
 import { FoodService } from '../services/food.service';
@@ -37,7 +37,7 @@ import { ExerciseService } from '../services/exercise.service';
 import { ExerciseSearchComponent } from '../pages/exercise/exercise-search/exercise.search';
 import { AddExerciseMasterComponent } from '../pages/exercise/exercise-add-master/exercise-add.master';
 import { AddExerciseLogComponent } from '../pages/exercise/exercise-add-log/exercise-add.log';
-import {AddExerciseLogSetComponent} from '../pages/exercise/exercise-add-log/exercise-add-set/exercise-add.set';
+import { AddExerciseLogSetComponent } from '../pages/exercise/exercise-add-log/exercise-add-set/exercise-add.set';
 
 @NgModule({
   declarations: [
@@ -104,7 +104,7 @@ import {AddExerciseLogSetComponent} from '../pages/exercise/exercise-add-log/exe
     DataService,
     FoodService,
     ExerciseService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

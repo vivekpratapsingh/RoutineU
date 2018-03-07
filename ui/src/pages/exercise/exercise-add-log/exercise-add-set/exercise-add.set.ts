@@ -3,18 +3,18 @@ import { NavParams, ViewController } from 'ionic-angular';
 import { Collections } from '../../../../common/collections';
 
 @Component({
-    template: `<ion-list>
+    template: `<ion-list *ngIf = 'exerciseSet'>
                     <ion-list-header>
                     Add Set
                         <ion-icon item-end ios="ios-close" md="md-close" (click)="close()"></ion-icon>
                     </ion-list-header>
                     <ion-item style="font-size:1.4rem">
                         <ion-label fixed># of Sets</ion-label>
-                        <ion-input type="number" [(ngModel)]="sets"></ion-input>
+                        <ion-input type="number" [(ngModel)]="sets.amount"></ion-input>
                     </ion-item>
                     <ion-item style="font-size:1.4rem">
                         <ion-label fixed># of Reps</ion-label>
-                        <ion-input type="number" [(ngModel)]="reps"></ion-input>
+                        <ion-input type="number" [(ngModel)]="reps.amount"></ion-input>
                     </ion-item>
                     <ion-item style="font-size:1.4rem">
                         <ion-label fixed>Weight</ion-label>
@@ -42,40 +42,55 @@ import { Collections } from '../../../../common/collections';
 export class AddExerciseLogSetComponent {
     nums: any;
     weight: any;
-    exerciseSet: Array<any>;
-    sets: number;
-    reps: number;
+    exerciseSet: any;
+    sets: any;
+    reps: any;
     rest: any;
     constructor(private navParams: NavParams, private viewCtrl: ViewController) {
         this.exerciseSet = this.navParams.data.exerciseSet;
-        if (this.exerciseSet == undefined) {
-            this.exerciseSet = [];
-        }
+        console.log(this.exerciseSet);
         this.weight = {
-            amount: 0,
-            unit: 'kg'
+            amount : this.exerciseSet.weight.amount,
+            unit : this.exerciseSet.weight.unit
         };
-        this.sets = 0;
-        this.reps = 0;
+        console.log(this.exerciseSet.sets.amount);
+        this.sets = {
+            amount : this.exerciseSet.sets.amount
+        };
+        this.reps = {
+            amount : this.exerciseSet.reps.amount
+        };
         this.rest = {
-            amount: 0,
-            unit: 'sec'
+            amount : this.exerciseSet.rest.amount,
+            unit : this.exerciseSet.rest.unit
         };
         this.nums = Collections.generateIntNumbers(100);
     }
 
     close() {
+        this.exerciseSet = null;
         this.viewCtrl.dismiss();
     }
 
     addSet() {
         if (this.sets != 0 && this.reps != 0 && this.weight.amount != 0) {
-            this.exerciseSet.push({
-                set: this.sets,
-                reps: this.reps,
-                weight: this.weight,
-                rest: this.rest
-            });
+            this.exerciseSet = {
+                sets:{
+                    amount : this.sets.amount
+                } ,
+                reps:{
+                    amount : this.reps.amount
+                } ,
+                weight: {
+                    amount : this.weight.amount,
+                    unit : this.weight.unit
+                },
+                rest:{
+                    amount : this.rest.amount,
+                    unit : this.rest.unit
+                }
+            };
+            console.log(this.exerciseSet);
             this.viewCtrl.dismiss();
         }
     }

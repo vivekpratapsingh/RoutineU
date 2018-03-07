@@ -3,7 +3,7 @@ import { UserService } from '../../services/user.service';
 import { NavController } from 'ionic-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExerciseSearchComponent } from '../exercise/exercise-search/exercise.search';
-import { WaterAddComponent } from '../food/water-add/water.add';
+import { WaterAddComponent } from '../water/water-add/water.add';
 
 @Component({
     templateUrl: 'home.html',
