@@ -22,6 +22,7 @@ router.use('/:id', function (req, res, next) {
     }
 });
 
+// update user details
 router.put('/:id', user_controller.update_user_detail);
 
 router.get('/:id', user_controller.get_user_by_id);
@@ -46,5 +47,11 @@ router.delete('/:id/logs/water/:logId',user_controller.remove_water_log);
 
 //add food log
 router.post('/:id/logs/food', user_controller.add_diet_log);
+
+//update diet log
+router.put('/:id/logs/food',user_controller.update_diet_log);
+
+//remove diet log
+router.delete('/:id/logs/food/:logId',user_controller.remove_diet_log);
 
 module.exports = router;

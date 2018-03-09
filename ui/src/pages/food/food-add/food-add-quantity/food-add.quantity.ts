@@ -32,8 +32,11 @@ export class AddFoodQuantityComponent{
     constructor(private navParams : NavParams,private viewCtrl : ViewController,
     private sharedService : DataService){
         this.food = this.navParams.data.food;
-        console.log(this.food.servings.quantity);
         this.servingsize = this.food.servings.size;
+        // {
+        //     amount : this.food.servings.size.amount,
+        //     unit : this.food.servings.size.unit,
+        // };
         this.servings = this.food.servings.quantity;
     }
 
@@ -42,7 +45,10 @@ export class AddFoodQuantityComponent{
     }
 
     updateQuatity(){
-        this.food.servings.size = this.servingsize;
+        this.food.servings.size = {
+            amount : this.servingsize.amount,
+            unit : this.servingsize.unit
+        };
         this.food.servings.quantity = this.servings;
         this.food.nutrients = Calculator.getFoodNutrientByQuantity(this.food.servings.size.amount, this.food.servings.size.unit,
             this.food.food,this.food.servings.quantity)

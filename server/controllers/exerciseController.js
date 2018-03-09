@@ -17,8 +17,8 @@ exports.get_exercise = function (req, res, next) {
     })
 }
 
-exports.get_exercise_by_name = function (req, res, next) {
-    let query = req.query.name;
+exports.get_exercise_by_query = function (req, res, next) {
+    let query = req.query.query;
     console.log(query);
     if (query != "") {
         Exercise.find({ $text :{$search : query} }, function (err, exercises) {

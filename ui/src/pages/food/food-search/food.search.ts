@@ -30,7 +30,7 @@ export class FoodSearchComponent {
         let val = ev.target.value;
         this.items = [];
         this.isError = false;
-        if (val && val.trim() != '') {
+        if (val && val.trim() != '' && val.trim().length > 2) {
             this.foodService.getFoodByQuery(val).subscribe((result) => {
                 this.items = result;
                 console.log(this.items);

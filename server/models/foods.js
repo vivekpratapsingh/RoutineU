@@ -40,4 +40,6 @@ const FoodSchema = new Schema({
     }
 }, { toJSON: { virtuals: true } });
 
+FoodSchema.index({name : 'text',brand : 'text'});
+
 module.exports = mongoose.model('Food', FoodSchema);

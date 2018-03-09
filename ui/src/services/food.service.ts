@@ -18,12 +18,12 @@ export class FoodService{
         headers.append('x-auth-token', localStorage.getItem('id_token'));
         headers.append('Content-Type', 'application/json');
         let params: URLSearchParams = new URLSearchParams();
-        params.set('name',q);
+        params.set('query',q);
         let options: RequestOptions = new RequestOptions({
             headers: headers,
             search : params
         });
-        return this.http.get(this.baseUrl+'foods/',options)
+        return this.http.get(this.baseUrl+'foods/search',options)
                             .map((res : any) => res.json())
                             .catch((error : any) => {
                                 return Observable.throw(error.status);

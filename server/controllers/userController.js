@@ -289,7 +289,7 @@ exports.update_water_log = [
     }
 ];
 
-//delte water log
+//delete water log
 exports.remove_water_log = function (req, res, next) {
     const userId = req.params.id;
     User.findById(userId, function (err, user) {
@@ -335,9 +335,10 @@ exports.remove_water_log = function (req, res, next) {
 //add diet log
 exports.add_diet_log = [
     body('food').isMongoId().withMessage('Invalid food'),
-    body('mealOption').isLength({ min: 6 }).withMessage('Invalid meal option'),
+    body('mealOption').isLength({ min: 5 }).withMessage('Invalid meal option'),
     body('servings.size.amount').isInt({ min: 1 }).withMessage('Provide servings amount'),
     body('servings.quantity').isInt({ min: 1 }).withMessage('Provide servings quantity'),
+    body('added').isLength({min:6}).withMessage('added date required'),
     sanitizeBody('*').trim().escape(),
     sanitizeParam('*').trim().escape(),
     (req, res, next) => {
@@ -345,6 +346,7 @@ exports.add_diet_log = [
 
         if (!errors.isEmpty()) {
             res.status(400);
+            console.log(errors.array());
             res.send(errors.array());
         }
         else {
@@ -364,23 +366,24 @@ exports.add_diet_log = [
                                 amount: req.body.servings.size.amount,
                                 unit: req.body.servings.size.unit
                             },
-                            quantity: req.body.servings.size.quantity
+                            quantity: req.body.servings.quantity
                         },
                         mealOption: req.body.mealOption,
                         added: new Date(req.body.added)
                     });
-                    User.findByIdAndUpdate(userId, { $set: user }, { new: true }, function (err, result) {
-                        if (err) {
-                            next(err);
+                    User.findByIdAndUpdate(userId, { $set: user }, { new: true }).populate('logs.exercise.exercise').populate('logs.diet.food').exec(function (error, updatedUser) {
+                        if (error) {
+                            next(error);
                         }
-                        var food = food_controller.get_food_id(req.body.food, next);
-                        if (food) {
-                            food._users.push(req.params.id);
-                            food_controller.update_food(req.body.food, food, next);
+                        else {
+                            console.log(updatedUser);
                             res.status(201);
-                            res.send(result);
+                            res.send(updatedUser);
                         }
                     });
+                }
+                else {
+                    next('user does not exists');
                 }
             })
         }
@@ -389,10 +392,12 @@ exports.add_diet_log = [
 
 //update diet log
 exports.update_diet_log = [
-    body('food').isMongoId().withMessage('Invalid food'),
-    body('mealOption').isLength({ min: 6 }).withMessage('Invalid meal option'),
+    body('food._id').isMongoId().withMessage('Invalid food'),
+    body('_id').isMongoId().withMessage('invalid log id'),
+    body('mealOption').isLength({ min: 5 }).withMessage('Invalid meal option'),
     body('servings.size.amount').isInt({ min: 1 }).withMessage('Provide servings amount'),
     body('servings.quantity').isInt({ min: 1 }).withMessage('Provide servings quantity'),
+    body('added').isLength({min:6}).withMessage('added date required'),
     sanitizeBody('*').trim().escape(),
     sanitizeParam('*').trim().escape(),
     (req, res, next) => {
@@ -400,6 +405,7 @@ exports.update_diet_log = [
 
         if (!errors.isEmpty()) {
             res.status(400);
+            console.log(errors.array());
             res.send(errors.array());
         }
         else {
@@ -412,35 +418,90 @@ exports.update_diet_log = [
                     if (user.logs.diet == undefined) {
                         user.logs.diet = [];
                     }
-                    user.logs.diet.push({
-                        food: req.body.food,
-                        servings: {
-                            size: {
-                                amount: req.body.servings.size.amount,
-                                unit: req.body.servings.size.unit
+                    const logId = req.body._id;
+                    if (logId) {
+                        const dietLogIndex = filterLogById(user.logs.diet, logId);
+                        if (dietLogIndex > -1) {
+                            user.logs.diet.splice(dietLogIndex, 1);
+                        }
+                        user.logs.diet.push({
+                            food: req.body.food,
+                            servings: {
+                                size: {
+                                    amount: req.body.servings.size.amount,
+                                    unit: req.body.servings.size.unit
+                                },
+                                quantity: req.body.servings.quantity
                             },
-                            quantity: req.body.servings.size.quantity
-                        },
-                        mealOption: req.body.mealOption,
-                        added: new Date(req.body.added)
-                    });
-                    User.findByIdAndUpdate(userId, { $set: user }, { new: true }, function (err, result) {
-                        if (err) {
-                            next(err);
-                        }
-                        var food = food_controller.get_food_id(req.body.food, next);
-                        if (food) {
-                            food._users.push(req.params.id);
-                            food_controller.update_food(req.body.food, food, next);
-                            res.status(201);
-                            res.send(result);
-                        }
-                    });
+                            mealOption: req.body.mealOption,
+                            added: new Date(req.body.added)
+                        });
+                        User.findByIdAndUpdate(userId, { $set: user }, { new: true }).populate('logs.exercise.exercise').populate('logs.diet.food').exec(function (error, updatedUser) {
+                            if (error) {
+                                next(error);
+                            }
+                            else {
+                                console.log(updatedUser);
+                                res.status(201);
+                                res.send(updatedUser);
+                            }
+                        });
+                    }
+                    else {
+                        res.status(400);
+                        res.send('resourse log not provided');
+                    }
+                }
+                else {
+                    next('user not found');
                 }
             })
         }
     }
 ]
+
+//remove diet log
+exports.remove_diet_log = function (req, res, next) {
+    const userId = req.params.id;
+    User.findById(userId, function (err, user) {
+        if (err) {
+            next(err);
+        }
+        if (user) {
+            const logId = req.params.logId;
+            if (user.logs.diet == undefined) {
+                user.logs.diet = [];
+            }
+            if (logId) {
+                const dietLogIndex = filterLogById(user.logs.diet, logId);
+                if (dietLogIndex > -1) {
+                    //delete water log
+                    user.logs.diet.splice(dietLogIndex, 1);
+                    User.findByIdAndUpdate(userId, { $set: user }, { new: true }).populate('logs.exercise.exercise').populate('logs.diet.food').exec(function (error, updatedUser) {
+                        if (error) {
+                            next(error);
+                        }
+                        user = updatedUser;
+                        console.log(updatedUser);
+                        res.status(201);
+                        res.send(updatedUser);
+                    });
+                }
+                else {
+                    res.status(201);
+                    res.send(user);
+                }
+            }
+            else {
+                res.status(400);
+                res.send('resourse log not provided');
+            }
+        }
+        else {
+            next('user not found');
+        }
+    })
+}
 
 //find user by id
 const findUserById = function (userId, next) {

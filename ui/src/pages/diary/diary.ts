@@ -10,6 +10,7 @@ import { UserService } from '../../services/user.service';
 import { ExerciseService } from '../../services/exercise.service';
 import { AddExerciseLogComponent } from '../exercise/exercise-add-log/exercise-add.log';
 import { AddExerciseLogSetComponent } from '../exercise/exercise-add-log/exercise-add-set/exercise-add.set';
+import { AddFoodComponent } from '../food/food-add/food.add';
 
 @Component({
     templateUrl: 'diary.html',
@@ -28,39 +29,59 @@ export class DiaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inside page init');
         if (this.navParams.data.user) {
             this.user = this.navParams.data.user
         }
         else {
             this.user = this.route.snapshot.data['user'];
         }
-        console.log(this.user);
         this.displayDate = 'Today';
         this.date = new Date(new Date().toISOString());
         this.getLogByDate();
-        console.log(this.events);
         this.events.subscribe('user-detail', (userdetail) => {
-            console.log(userdetail);
             this.user = userdetail;
             this.getLogByDate();
         });
     }
 
-    ionViewDidEnter(){
-        console.log(this.user);
-    }
+    // ionViewDidEnter() {
+    //     console.log(this.user);
+    // }
 
     // add food
     addFood(option) {
-        console.log(option);
-
         if (option == 'Water') {
             this.navCtrl.push(WaterAddComponent, { user: this.user, date: this.date });
         }
         else {
             this.navCtrl.push(FoodSearchComponent, { mealOption: option, user: this.user, date: this.date });
         }
+    }
+
+    //update diet log
+    updateDietLog(diet: any, mealOp: string) {
+        // console.log(diet);
+        // console.log(mealOp);
+        this.navCtrl.push(AddFoodComponent, { user: this.user, mealOption: mealOp, date: this.date, addedFood: diet })
+    }
+
+    //remove diet log
+    removeDietLog(id: any) {
+        this.userService.removeDietLog(id)
+            .subscribe(
+                result => {
+                    // console.log(result);
+                    this.user = result;
+                    this.getLogByDate();
+                }, error => {
+                    let toast = this.toastCtrl.create({
+                        message: 'could not remove food log',
+                        duration: 2000,
+                        position: 'top'
+                    });
+                    toast.present();
+                }
+            )
     }
 
     //update water
@@ -164,7 +185,6 @@ export class DiaryComponent implements OnInit {
 
     // get diet log by date
     getLogByDate() {
-
         let breakfastLog = this.filterDietByMeal('Breakfast');
         let lunchLog = this.filterDietByMeal('Lunch');
         let dinnerLog = this.filterDietByMeal('Dinner');
@@ -192,11 +212,12 @@ export class DiaryComponent implements OnInit {
     getLogsWithCalories(dietLog): any {
         let displayLog = [];
         let calories: number = 0;
+
         dietLog.forEach(element => {
-            let data: number = element.food.quantity.filter(q => q.serving_size.size.amount == element.servings.size.amount && q.serving_size.size.unit == element.servings.size.unit).calories * element.servings.quantity;
+            let data: number = element.food.quantity.filter(q => q.serving_size.size.amount == element.servings.size.amount && q.serving_size.size.unit == element.servings.size.unit)[0].serving_size.calories * element.servings.quantity;
             calories = calories + data;
             displayLog.push({
-                dietId: element._id,
+                _id: element._id,
                 food: element.food,
                 servings: element.servings,
                 mealOption: element.mealOption,

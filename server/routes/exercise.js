@@ -6,6 +6,6 @@ router.get('/',exercise.get_exercise);
 
 router.post('/',exercise.add_exercise);
 
-router.get('/name',exercise.get_exercise_by_name);
+router.get('/search',exercise.get_exercise_by_query);
 
 module.exports = router;

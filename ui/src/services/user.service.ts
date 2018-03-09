@@ -174,7 +174,7 @@ export class UserService {
         let options: RequestOptions = new RequestOptions({
             headers: headers
         });
-        return this.http.post(this.baseUrl + 'users/' + userId + 'logs/food', food, options)
+        return this.http.post(this.baseUrl + 'users/' + userId + '/logs/food', food, options)
             .map((res: any) => res.json())
             .catch((error: any) => Observable.throw(error.status));
     }
@@ -188,7 +188,22 @@ export class UserService {
         let options: RequestOptions = new RequestOptions({
             headers: headers
         });
-        return this.http.put(this.baseUrl + 'users/' + userId + 'logs/food', food, options)
+        return this.http.put(this.baseUrl + 'users/' + userId + '/logs/food', food, options)
+            .map((res: any) => res.json())
+            .catch((error: any) => Observable.throw(error.status));
+    }
+
+    //remove diet log 
+    removeDietLog(logId :any) : Observable<any>{
+        console.log(logId);
+        let headers: Headers = new Headers();
+        let userId = localStorage.getItem('id');
+        headers.append('x-auth-token', localStorage.getItem('id_token'));
+        headers.append('Content-Type', 'application/json');
+        let options: RequestOptions = new RequestOptions({
+            headers: headers
+        });
+        return this.http.delete(this.baseUrl + 'users/' + userId + '/logs/food/'+logId, options)
             .map((res: any) => res.json())
             .catch((error: any) => Observable.throw(error.status));
     }

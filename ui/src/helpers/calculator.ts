@@ -37,29 +37,30 @@ export class Calculator {
         for (let i = 0; i < numQuantity; i++) {
             if (foodQuantity[i].serving_size.size.amount == size && foodQuantity[i].serving_size.size.unit == unit) {
                 quantityData = foodQuantity[i];
+                break;
             }
         }
         var servingData = quantityData.serving_size;
         var nutrientsValue = {
             calories: Math.round(servingData.calories * quantity),
-            carbohydrates: Math.round(servingData.carbohydrates.amount * quantity),
+            carbohydrates: Math.round(servingData.carbohydrates * quantity),
             fat: {
                 amount: Math.round(servingData.fat.amount * quantity),
-                saturated: Math.round(servingData.fat.saturated * quantity),
-                polysaturated: Math.round(servingData.fat.polysaturated * quantity),
-                monosaturated: Math.round(servingData.fat.monosaturated * quantity),
-                trans: Math.round(servingData.fat.trans * quantity)
+                saturated: Math.round(servingData.fat.types.saturated * quantity),
+                polysaturated: Math.round(servingData.fat.types.polysaturated * quantity),
+                monosaturated: Math.round(servingData.fat.types.monosaturated * quantity),
+                trans: Math.round(servingData.fat.types.trans * quantity)
             },
-            cholesterol: Math.round(servingData.cholesterol.amount * quantity),
-            sodium: Math.round(servingData.sodium.amount * quantity),
-            potassium: Math.round(servingData.potassium.amount * quantity),
-            dietry_fiber: Math.round(servingData.dietry_fiber.amount * quantity),
-            sugers: Math.round(servingData.sugers.amount * quantity),
-            protein: Math.round(servingData.protein.amount * quantity),
-            vitamin_a: Math.round(servingData.vitamin_a.amount * quantity),
-            vitamin_c: Math.round(servingData.vitamin_c.amount * quantity),
-            calcium: Math.round(servingData.calcium.amount * quantity),
-            iron: Math.round(servingData.iron.amount * quantity),
+            cholesterol: Math.round(servingData.cholesterol * quantity),
+            sodium: Math.round(servingData.sodium * quantity),
+            potassium: Math.round(servingData.potassium * quantity),
+            dietry_fiber: Math.round(servingData.dietry_fiber * quantity),
+            sugar: Math.round(servingData.sugar * quantity),
+            protein: Math.round(servingData.protein * quantity),
+            vitamin_a: Math.round(servingData.vitamin_a * quantity),
+            vitamin_c: Math.round(servingData.vitamin_c * quantity),
+            calcium: Math.round(servingData.calcium * quantity),
+            iron: Math.round(servingData.iron * quantity),
         }
         return nutrientsValue;
     }

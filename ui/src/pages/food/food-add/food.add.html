@@ -12,7 +12,7 @@
 
 </ion-header>
 <ion-content>
-    <ion-list *ngIf="food">
+    <ion-list *ngIf="foodItem">
         <ion-item class="div-font-size">
             {{foodItem.food.name}} ({{foodItem.food.brand}})
         </ion-item>
@@ -34,22 +34,22 @@
         <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
             <ion-row>
                 <ion-col>
-                    <ion-row class="row-align-center">{{user.goal.calories}}</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.calories}}</ion-row>
                     <ion-row class="row-align-center">Calorie</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.carbohydrates * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.carbohydrates}}g</ion-row>
                     <ion-row class="row-align-center">Carbs</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.protein * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.protein}}g</ion-row>
                     <ion-row class="row-align-center">Protein</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.fat.amount * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.fat.amount}}g</ion-row>
                     <ion-row class="row-align-center">Fat</ion-row>
                 </ion-col>
             </ion-row>
@@ -60,23 +60,23 @@
             <ion-row>Percent of Your Daily Goals</ion-row>
             <ion-row>
                 <ion-col>
-                    <ion-row class="row-align-center">{{(foodItem.nutrients.calories) * 100/user.goal.calories}}%</ion-row>
-                    <ion-row class="row-align-center">{{user.goal.calories}}</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.calories) * 100/userGoal.calories | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.calories}}</ion-row>
                     <ion-row class="row-align-center">Calorie</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">{{(foodItem.nutrients.carbohydrates) * 100/user.goal.macros.carbohydrate.amount}}%</ion-row>
-                    <ion-row class="row-align-center">{{user.goal.macros.carbohydrate.amount}}g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.carbohydrates) * 100/userGoal.macros.carbohydrate | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.carbohydrate}}g</ion-row>
                     <ion-row class="row-align-center">Carbs</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">{{(foodItem.nutrients.protein) * 100/user.goal.macros.protein.amount}}%</ion-row>
-                    <ion-row class="row-align-center">{{user.goal.macros.protein.amount}}g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.protein) * 100/userGoal.macros.protein | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.protein}}g</ion-row>
                     <ion-row class="row-align-center">Protein</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">{{(foodItem.nutrients.fat.amount) * 100/user.goal.macros.fat.amount}}%</ion-row>
-                    <ion-row class="row-align-center">{{user.goal.macros.fat.amount}}g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.fat.amount) * 100/userGoal.macros.fat | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.fat}}g</ion-row>
                     <ion-row class="row-align-center">Fat</ion-row>
                 </ion-col>
             </ion-row>
@@ -132,8 +132,8 @@
                 <div style="float:right">{{foodItem.nutrients.dietry_fiber}}</div>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">Sugers</div>
-                <div style="float:right">{{foodItem.nutrients.sugers}}</div>
+                <div style="float:left">Sugars</div>
+                <div style="float:right">{{foodItem.nutrients.sugar}}</div>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">Vitamin A</div>

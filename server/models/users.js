@@ -155,16 +155,45 @@ UserSchema.virtual('url').get(function () {
     return '/users/' + this._id;
 });
 
+// UserSchema.virtual('infoRequired').get(function () {
+//     if (this.height == undefined || this.height == 0 ||
+//         this.weight == undefined || this.weight.initial.weight == undefined || this.weight.initial.weight == 0 ||
+//         this.logs == undefined || this.logs.goal == undefined || this.logs.goal.weight.length > 1 || this.logs.goal.calories.length > 1 ||
+//         this.logs.goal.macros.length > 1 || this.logs.goal.weekly_goal.length > 1 || 
+//         this.logs.goal.weight[this.logs.goal.weight.length - 1] == undefined || this.logs.goal.weight[this.logs.goal.weight.length - 1].weight == 0 ||
+//         this.logs.goal.calories[this.logs.goal.calories.length - 1] == undefined || this.logs.goal.calories[this.logs.goal.calories.length - 1].calories == 0 ||
+//         this.logs.goal.macros[this.logs.goal.macros.length - 1] == undefined || this.logs.goal.macros[this.logs.goal.macros.length - 1].macros == undefined ||
+//         this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.carbohydrate == undefined || this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.carbohydrate == 0 ||
+//         this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.protein == undefined || this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.protein == 0 ||
+//         this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.fat == undefined || this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.fat == 0) {
+//         console.log(this.height == undefined);
+//         console.log(this.height == 0);
+//         console.log(this.weight == undefined);
+//         console.log(this.weight);
+//         console.log(this.weight.initial.weight == undefined);
+//         console.log(this.weight.initial.weight == 0);
+//         console.log(this.logs);
+//         console.log(this.logs.goal);
+//         console.log(this.logs.goal.weight.length);
+//         console.log(this.logs.goal.calories.length);
+//         console.log(this.logs.goal.macros.length);
+//         console.log(this.logs.goal.weekly_goal.length);    
+//         console.log(this.logs.goal.weight[this.logs.goal.weight.length - 1]);
+//         console.log(this.logs.goal.weight[this.logs.goal.weight.length - 1].weight);
+//         console.log(this.logs.goal.calories[this.logs.goal.calories.length - 1]);
+//         console.log(this.logs.goal.calories[this.logs.goal.calories.length - 1].calories);
+//         console.log(this.logs.goal.macros[this.logs.goal.macros.length - 1]);
+//         console.log(this.logs.goal.macros[this.logs.goal.macros.length - 1].macros);
+//         console.log(this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.carbohydrate);
+//         console.log(this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.protein);
+//         console.log(this.logs.goal.macros[this.logs.goal.macros.length - 1].macros.fat);
+//         return true;
+//     }
+//     return false;
+// });
+
 UserSchema.virtual('infoRequired').get(function () {
-    if (this.height == undefined || this.height == 0 ||
-        this.weight == undefined || this.weight.initial.weight == undefined || this.weight.initial.weight == 0 ||
-        this.logs == undefined || this.logs.goal == undefined ||
-        this.logs.goal.weight[0] == undefined || this.logs.goal.weight[0].weight == 0 ||
-        this.logs.goal.calories[0] == undefined || this.logs.goal.calories[0].calories == 0 ||
-        this.logs.goal.macros[0] == undefined || this.logs.goal.macros[0].macros == undefined ||
-        this.logs.goal.macros[0].macros.carbohydrate == undefined || this.logs.goal.macros[0].macros.carbohydrate == 0 ||
-        this.logs.goal.macros[0].macros.protein == undefined || this.logs.goal.macros[0].macros.protein == 0 ||
-        this.logs.goal.macros[0].macros.fat == undefined || this.logs.goal.macros[0].macros.fat == 0) {
+    if(this.logs == undefined || this.logs.goal == undefined || this.logs.goal.calories.length < 1){
         return true;
     }
     return false;
