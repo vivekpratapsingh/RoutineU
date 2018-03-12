@@ -10,15 +10,15 @@
                 <ion-option value="bacon" selected="true">Calories remaining</ion-option>
             </ion-select>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content (click)="openDiary()">
             <ion-row style="text-align:center">
-                <ion-col col-2>2590</ion-col>
+                <ion-col col-2>{{userLog.calories.req}}</ion-col>
                 <ion-col col-1>-</ion-col>
-                <ion-col col-2>200</ion-col>
+                <ion-col col-2>{{userLog.calories.actual}}</ion-col>
                 <ion-col col-1>+</ion-col>
                 <ion-col col-2>0</ion-col>
                 <ion-col col-1>=</ion-col>
-                <ion-col col-3>1390</ion-col>
+                <ion-col col-3>{{userLog.calories.req - userLog.calories.actual}}</ion-col>
             </ion-row>
             <ion-row style="text-align:center">
                 <ion-col col-2>Goal</ion-col>
