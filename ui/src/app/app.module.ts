@@ -38,6 +38,7 @@ import { ExerciseSearchComponent } from '../pages/exercise/exercise-search/exerc
 import { AddExerciseMasterComponent } from '../pages/exercise/exercise-add-master/exercise-add.master';
 import { AddExerciseLogComponent } from '../pages/exercise/exercise-add-log/exercise-add.log';
 import { AddExerciseLogSetComponent } from '../pages/exercise/exercise-add-log/exercise-add-set/exercise-add.set';
+import { SharedService } from '../services/shared.service';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { AddExerciseLogSetComponent } from '../pages/exercise/exercise-add-log/e
     DataService,
     FoodService,
     ExerciseService,
+    SharedService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { NavController, ActionSheetController,NavParams,Events } from 'ionic-angular';
+import { NavController, ActionSheetController, NavParams, Events } from 'ionic-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExerciseSearchComponent } from '../exercise/exercise-search/exercise.search';
 import { WaterAddComponent } from '../water/water-add/water.add';
 import { FoodSearchComponent } from '../food/food-search/food.search';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
     templateUrl: 'home.html',
@@ -12,20 +13,32 @@ import { FoodSearchComponent } from '../food/food-search/food.search';
 })
 export class HomeComponent {
 
-    user :any;
-    date : any;
-    userLog : any;
+    user: any;
+    date: any;
+    userLog: any;
     constructor(private navCtrl: NavController, private route: ActivatedRoute,
-        private actionSheetCtrl: ActionSheetController,private events : Events) {
-            this.user = this.route.snapshot.data['user'];
-            this.date = new Date();
-            this.getLogByDate();
-            this.events.subscribe('user-detail', (userdetail) => {
-                this.user = userdetail;
+        private actionSheetCtrl: ActionSheetController, private events: Events, private sharedService: SharedService) {
+        this.user = this.route.snapshot.data['user'];
+        this.date = new Date();
+        this.sharedService.data.subscribe((data) => {
+            if (data) {
+                this.user = data
                 this.getLogByDate();
-            });
-         }
-        
+            }
+        });
+        this.getLogByDate();
+    }
+
+
+    ionViewDidEnter() {
+        console.log('ion view did enter');
+        //this.user = this.route.snapshot.data['user'];
+        // this.events.subscribe('user-detail',(user) => {
+        //     this.user = user;
+        //     this.getLogByDate();
+        // });
+    }
+
     // add water    
     addExercise() {
         this.route.params.subscribe(params => {
@@ -143,7 +156,7 @@ export class HomeComponent {
         return reqCalories;
     }
 
-    getActualCalories() : any{
+    getActualCalories(): any {
         let actualCal = 0;
         if (this.userLog.breakfast) {
             this.userLog.breakfast.log.forEach(element => {
@@ -187,7 +200,7 @@ export class HomeComponent {
         return { log: displayLog, calories: calories };
     }
 
-    openDiary(){
+    openDiary() {
         this.navCtrl.parent.select(1);
     }
 

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, Events } from 'ionic-angular';
 import { UserService } from '../../../../services/user.service';
 import * as CalorieUpdater from '../goal-settings.common';
+import {SharedService} from '../../../../services/shared.service';
 
 @Component({
     template: `<ion-list>
@@ -27,7 +28,8 @@ export class UpdateWeeklyGoalComponent {
 
     weeklyGoal: any;
     user: any;
-    constructor(private viewCtrl: ViewController, private navParams: NavParams, private userService: UserService) {
+    constructor(private viewCtrl: ViewController, private navParams: NavParams,
+        private userService: UserService, private events: Events,private sharedService : SharedService) {
         this.user = this.navParams.data.user;
         if (this.user.logs.goal.weekly_goal.length > 0) {
             this.weeklyGoal = this.user.logs.goal.weekly_goal[this.user.logs.goal.weekly_goal.length - 1].goal
@@ -41,7 +43,12 @@ export class UpdateWeeklyGoalComponent {
         this.user.logs.goal.weekly_goal.push({ goal: this.weeklyGoal });
         this.user = CalorieUpdater.updateUserCalories(this.user);
         this.userService.updateUserDetail(this.user, this.user._id)
-            .subscribe(result => { this.viewCtrl.dismiss(); });
+            .subscribe(result => {
+                this.user = result;
+                this.sharedService.data.next(this.user);
+                //this.events.publish('user-detail',this.user);
+                this.viewCtrl.dismiss();
+            });
 
         console.log(this.user);
 
