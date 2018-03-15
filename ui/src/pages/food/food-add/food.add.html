@@ -1,44 +1,55 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{title}}</ion-title>
-        <ion-icon ios="ios-checkmark" md="md-checkmark" class="nav-icon-right"></ion-icon>
-    </ion-navbar>
+<ion-header class="food-add-header">
+    <ion-toolbar>
+        <ion-navbar>
+            <ion-title>{{title}}</ion-title>
+            <ion-buttons end>
+                <button ion-button icon-only (click)="addFood()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-toolbar>
+
 </ion-header>
 <ion-content>
-    <ion-list>
+    <ion-list *ngIf="foodItem">
         <ion-item class="div-font-size">
-            Food Name
+            {{foodItem.food.name}} ({{foodItem.food.brand}})
         </ion-item>
         <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
             <div style="float:left">Meal</div>
-            <div style="float:right">Breakfast</div>
+            <div style="float:right">{{foodItem.mealOption}}</div>
         </ion-item>
         <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)="updateQuantity()">
             <div style="float:left">Number of Servings</div>
-            <div style="float:right">{{food.servings}}</div>
+            <div style="float:right">{{foodItem.servings.quantity}}</div>
         </ion-item>
 
         <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)="updateQuantity()">
             <div style="float:left">Servings size</div>
-            <div style="float:right">{{food.servingsize}}</div>
+            <div style="float:right">{{foodItem.servings.size.amount}} {{foodItem.servings.size.unit}}</div>
         </ion-item>
 
         <!--meal percentage breakdown-->
         <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
             <ion-row>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.calories}}</ion-row>
+                    <ion-row class="row-align-center">Calorie</ion-row>
+                </ion-col>
+                <ion-col>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.carbohydrates * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.carbohydrates}}g</ion-row>
                     <ion-row class="row-align-center">Carbs</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.protein * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.protein}}g</ion-row>
                     <ion-row class="row-align-center">Protein</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.fat.amount * 4)*100/foodItem.nutrients.calories | number : '1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{foodItem.nutrients.fat.amount}}g</ion-row>
                     <ion-row class="row-align-center">Fat</ion-row>
                 </ion-col>
             </ion-row>
@@ -49,23 +60,23 @@
             <ion-row>Percent of Your Daily Goals</ion-row>
             <ion-row>
                 <ion-col>
-                    <ion-row class="row-align-center">24%</ion-row>
-                    <ion-row class="row-align-center">2590</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.calories) * 100/userGoal.calories | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.calories}}</ion-row>
                     <ion-row class="row-align-center">Calorie</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.carbohydrates) * 100/userGoal.macros.carbohydrate | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.carbohydrate}}g</ion-row>
                     <ion-row class="row-align-center">Carbs</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.protein) * 100/userGoal.macros.protein | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.protein}}g</ion-row>
                     <ion-row class="row-align-center">Protein</ion-row>
                 </ion-col>
                 <ion-col>
-                    <ion-row class="row-align-center">52%</ion-row>
-                    <ion-row class="row-align-center">81.9g</ion-row>
+                    <ion-row class="row-align-center">{{(foodItem.nutrients.fat.amount) * 100/userGoal.macros.fat | number:'1.1-1'}}%</ion-row>
+                    <ion-row class="row-align-center">{{userGoal.macros.fat}}g</ion-row>
                     <ion-row class="row-align-center">Fat</ion-row>
                 </ion-col>
             </ion-row>
@@ -78,19 +89,71 @@
         <ion-item-group *ngIf="nutritionDetail">
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">Calorie</div>
-                <div style="float:right">330</div>
+                <div style="float:right">{{foodItem.nutrients.calories}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Carbohydrates</div>
+                <div style="float:right">{{foodItem.nutrients.carbohydrates}}</div>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">Protein</div>
-                <div style="float:right">32</div>
+                <div style="float:right">{{foodItem.nutrients.protein}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Fat</div>
+                <div style="float:right">{{foodItem.nutrients.fat.amount}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Saturated</div>
+                <div style="float:right">{{foodItem.nutrients.fat.saturated}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Polysaturated</div>
+                <div style="float:right">{{foodItem.nutrients.fat.polysaturated}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Monosaturated</div>
+                <div style="float:right">{{foodItem.nutrients.fat.monosaturated}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Trans</div>
+                <div style="float:right">{{foodItem.nutrients.fat.trans}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Cholesterol</div>
+                <div style="float:right">{{foodItem.nutrients.cholesterol}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Sodium</div>
+                <div style="float:right">{{foodItem.nutrients.sodium}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Dietry Fiber</div>
+                <div style="float:right">{{foodItem.nutrients.dietry_fiber}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Sugars</div>
+                <div style="float:right">{{foodItem.nutrients.sugar}}</div>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">Vitamin A</div>
-                <div style="float:right">20 mg</div>
+                <div style="float:right">{{foodItem.nutrients.vitamin_a}} mg</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Vitamin C</div>
+                <div style="float:right">{{foodItem.nutrients.vitamin_c}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Calcium</div>
+                <div style="float:right">{{foodItem.nutrients.calcium}}</div>
+            </ion-item>
+            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
+                <div style="float:left">Iron</div>
+                <div style="float:right">{{foodItem.nutrients.iron}}</div>
             </ion-item>
             <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
                 <div style="float:left">Potassium</div>
-                <div style="float:right">400 mg</div>
+                <div style="float:right">{{foodItem.nutrients.potassium}} mg</div>
             </ion-item>
         </ion-item-group>
         <ion-item *ngIf="nutritionDetail" (click)="showNutrition('disable')" style="text-align:center;background:lightgrey;font-size:1.3rem;height:3.0rem">

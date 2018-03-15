@@ -1,0 +1,87 @@
+<ion-header class="food-add-header">
+    <ion-toolbar>
+        <ion-navbar>
+            <ion-title>{{title}}</ion-title>
+            <ion-buttons end>
+                <button ion-button icon-only *ngIf='exerciseSet.length == 0' (click)="addExerciseLog()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+                <button ion-button icon-only *ngIf='exerciseSet.length > 0' (click)="updateExerciseLog()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngIf='exercise'>
+        <ion-list>
+            <ion-list-header>
+                <ion-toolbar>
+                    {{exercise.name}}
+                    <ion-buttons end>
+                        <button ion-button icon-left color="primary" (click)="addSet()">
+                            <ion-icon name="add"></ion-icon>Set
+                        </button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-list-header>
+            <ion-item>
+                <div style="float:left">Type</div>
+                <div style="float:right">{{exercise.type}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Equipment</div>
+                <div style="float:right">{{exercise.equipment}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Level</div>
+                <div style="float:right">{{exercise.level}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Primary</div>
+                <div style="float:right">{{exercise.primary_muscle.toString()}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Secondary</div>
+                <div style="float:right">{{exercise.secondary_muscle.toString()}}</div>
+            </ion-item>
+            <ion-item>
+                <div style="float:left">Calories Burned</div>
+                <div style="float:right">{{exercise.calories_burned}}</div>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <ion-card *ngIf='exerciseSet'>
+        <ion-list>
+            <ion-item-sliding *ngFor="let exerciseset of exerciseSetTemp">
+                <ion-item (click)="updateSet(exerciseset)">
+                    <div style="float:left">
+                        <ion-row>
+                            <h3>{{exercise.name}}</h3>
+                        </ion-row>
+                        <ion-row>
+                            <p>{{exerciseset.set}} sets,{{exerciseset.reps}} reps,{{exerciseset.weight.amount}} {{exerciseset.weight.unit}},{{exerciseset.rest.amount}}
+                                {{exerciseset.rest.unit}}
+                            </p>
+                        </ion-row>
+                    </div>
+                    <!-- <div style="float:right">
+                    <ion-row>
+                        {{item.calorie_burned == 0 ? 'N/A' : item.calorie_burned + 'KCal'}}
+                    </ion-row>
+                    <ion-row>
+                        burned per min
+                    </ion-row>
+                </div> -->
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button color="danger" (click)="removeExerciseLog(exerciseset)">
+                        <ion-icon name="trash"></ion-icon>
+                        Delete
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </ion-card>
+</ion-content>

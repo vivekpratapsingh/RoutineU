@@ -1,256 +1,276 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Diary</ion-title>
-        <ion-icon ios="ios-pie" md="md-pie" class="nav-icon-right"></ion-icon>
-    </ion-navbar>
+  <ion-toolbar>
+    <ion-title>Diary</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon ios="ios-pie" md="md-pie"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
-<ion-content>
-    <!--chnage day-->
-    <ion-card style="margin-top:0%">
-        <ion-row>
-            <ion-col style="padding:0px">
-                <button ion-button small color="light" style="height:1.5rem" (click)="updateDate('1')">
-                    <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col style="text-align:center;padding:0px;display:flex;align-items:center;justify-content:center">
-                <p>{{displayDate}}</p>
-            </ion-col>
-            <ion-col style="padding:0px">
-                <button ion-button small color="light" style="float:right;height:1.5rem" (click)="updateDate('2')">
-                    <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row>
-    </ion-card>
+<ion-content class="diary-component">
+  <!--chnage day-->
+  <ion-card style="margin-top:0%">
+    <ion-row>
+      <ion-col style="padding:0px">
+        <button ion-button small color="light" style="height:1.5rem" (click)="updateDate('1')">
+          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col style="text-align:center;padding:0px;display:flex;align-items:center;justify-content:center">
+        <p>{{displayDate}}</p>
+      </ion-col>
+      <ion-col style="padding:0px">
+        <button ion-button small color="light" style="float:right;height:1.5rem" (click)="updateDate('2')">
+          <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
-    <!--calorie card-->
-    <ion-card>
-        <ion-row style="text-align:center">
-            <ion-col col-2>2590</ion-col>
-            <ion-col col-1>-</ion-col>
-            <ion-col col-2>200</ion-col>
-            <ion-col col-1>+</ion-col>
-            <ion-col col-2>0</ion-col>
-            <ion-col col-1>=</ion-col>
-            <ion-col col-3>1390</ion-col>
-        </ion-row>
-        <ion-row style="text-align:center">
-            <ion-col col-2>Goal</ion-col>
-            <ion-col col-1></ion-col>
-            <ion-col col-2>Food</ion-col>
-            <ion-col col-1></ion-col>
-            <ion-col col-2>Exercise</ion-col>
-            <ion-col col-1></ion-col>
-            <ion-col col-3>Remaining</ion-col>
-        </ion-row>
-    </ion-card>
+  <!--calorie card-->
+  <ion-card>
+    <ion-row style="text-align:center">
+      <ion-col col-2>{{userLog.calories.req}}</ion-col>
+      <ion-col col-1>-</ion-col>
+      <ion-col col-2>{{userLog.calories.actual}}</ion-col>
+      <ion-col col-1>+</ion-col>
+      <ion-col col-2>0</ion-col>
+      <ion-col col-1>=</ion-col>
+      <ion-col col-3>{{userLog.calories.req - userLog.calories.actual}}</ion-col>
+    </ion-row>
+    <ion-row style="text-align:center">
+      <ion-col col-2>Goal</ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-2>Food</ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-2>Exercise</ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-3>Remaining</ion-col>
+    </ion-row>
+  </ion-card>
 
-    <!--add breakfast -->
-    <ion-card>
-        <ion-list>
-            <ion-item>
-                <div style="float:left">BreakFast</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Breakfast')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
+  <!--add breakfast -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">BreakFast</p>
+          <ion-buttons end>
+            <button ion-button (click)="addFood('Breakfast')">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              {{userLog.breakfast.calories}}
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor='let diet of userLog.breakfast.log'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateDietLog(diet,breakfast)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>{{diet.food.name}}</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{diet.food.brand}}, {{diet.servings.size.amount * diet.servings.quantity}} {{diet.servings.size.unit}}</p>
+            </ion-row>
+          </div>
+          <div style="float:right">
+            {{diet.calories}}
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeDietLog(diet._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-            </ion-item>
-        </ion-list>
-    </ion-card>
+  <!--add Lunch -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">Lunch</p>
+          <ion-buttons end>
+            <button ion-button (click)="addFood('Lunch')">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              {{userLog.lunch.calories}}
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor='let diet of userLog.lunch.log'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateDietLog(diet,lunch)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>{{diet.food.name}}</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{diet.food.brand}}, {{diet.servings.size.amount * diet.servings.quantity}} {{diet.servings.size.unit}}</p>
+            </ion-row>
+          </div>
+          <div style="float:right">
+            {{diet.calories}}
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeDietLog(diet._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-    <!--add Lunch -->
-    <ion-card>
-        <ion-list>
-            <ion-item>
-                <div style="float:left">Lunch</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Lunch')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
+  <!--add Dinner -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">Dinner</p>
+          <ion-buttons end>
+            <button ion-button (click)="addFood('Dinner')">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              {{userLog.dinner.calories}}
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor='let diet of userLog.dinner.log'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateDietLog(diet,dinner)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>{{diet.food.name}}</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{diet.food.brand}}, {{diet.servings.size.amount * diet.servings.quantity}} {{diet.servings.size.unit}}</p>
+            </ion-row>
+          </div>
+          <div style="float:right">
+            {{diet.calories}}
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeDietLog(diet._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-    <!--add Dinner -->
-    <ion-card>
-        <ion-list>
-            <ion-item>
-                <div style="float:left">Dinner</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Dinner')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
+  <!--add Snacks -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">Snacks</p>
+          <ion-buttons end>
+            <button ion-button (click)="addFood('Snacks')">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              {{userLog.snacks.calories}}
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor='let diet of userLog.snacks.log'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateDietLog(diet,snacks)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>{{diet.food.name}}</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{diet.food.brand}}, {{diet.servings.size.amount * diet.servings.quantity}} {{diet.servings.size.unit}}</p>
+            </ion-row>
+          </div>
+          <div style="float:right">
+            {{diet.calories}}
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeDietLog(diet._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-    <!--add Snacks -->
-    <ion-card>
-        <ion-list>
-            <ion-item>
-                <div style="float:left">Snacks</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Snacks')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Food
-                    </button>
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Food Item</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 gms, 110 cal</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    110
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
+  <!--add Water -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">Water</p>
+          <ion-buttons end>
+            <button ion-button (click)="addFood('Water')">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              Add Water
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor='let water of userLog.water'>
+        <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)='updateWaterEntry(water)'>
+          <div style="float:left">
+            <ion-row>
+              <h3>Water</h3>
+            </ion-row>
+            <ion-row>
+              <p>{{water.amount}} ml</p>
+            </ion-row>
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeWaterLog(water._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-    <!--add Water -->
-    <ion-card>
-        <ion-list>
-            <ion-item>
-                <div style="float:left">Water</div>
-                <div style="float:right">
-                    <button ion-button color="light" (click)="addFood('Water')">
-                        <ion-icon ios="ios-add" md="md-add"></ion-icon>
-                        Add Water
-                    </button>
-                </div>
-            </ion-item>
-            <ion-item class="div-font-size" style="border-top: 0.55px solid #c8c7cc">
-                <div style="float:left">
-                    <ion-row>
-                        <h3>Water</h3>
-                    </ion-row>
-                    <ion-row>
-                        <p>100 ml</p>
-                    </ion-row>
-                </div>
-                <div style="float:right">
-                    -
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-card>
-
-
+  <!-- add exercise-->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-toolbar>
+          <p style="color:black">Exercise</p>
+          <ion-buttons end>
+            <button ion-button (click)="addExercise()">
+              <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              Add Exercise
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-item>
+      <ion-item-sliding *ngFor="let exercise of userLog.exercise">
+        <ion-item *ngIf='exercise.intensity.length > 0' class="div-font-size" style="border-top: 0.55px solid #c8c7cc" (click)="updateExerciseLog(exercise)">
+          <div style="float:left">
+            <ion-row>
+              <h3>{{exercise.exercise.name}}</h3>
+            </ion-row>
+            <ion-row *ngFor="let exerciseset of exercise.intensity">
+              <p>{{exerciseset.set}} sets,{{exerciseset.reps}} reps,{{exerciseset.weight.amount}} {{exerciseset.weight.unit}},{{exerciseset.rest.amount}}
+                {{exerciseset.rest.unit}}
+              </p>
+            </ion-row>
+          </div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeExerciseLog(exercise._id)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 </ion-content>

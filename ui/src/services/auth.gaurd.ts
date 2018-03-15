@@ -11,9 +11,9 @@ export class AuthGuard implements CanActivate {
         return this.checkLogin();
     }
 
-    checkLogin(): Promise<boolean> {
+    checkLogin(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.userService.isLoggedIn().then(() => {
+            this.userService.isLoggedIn().then((user) => {
                 resolve(true);
             }).catch(() => {
                 this.router.navigate(['/login']);

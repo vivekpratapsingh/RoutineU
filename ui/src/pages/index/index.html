@@ -1,6 +1,6 @@
-<ion-tabs>
-    <ion-tab tabIcon="home" [root]="home"></ion-tab>
-    <ion-tab tabIcon="bookmarks" [root]="diary"></ion-tab>
-    <ion-tab tabIcon="search" [root]="search"></ion-tab>
-    <ion-tab tabIcon="person" [root]="profile"></ion-tab>
+<ion-tabs #tabParent>
+    <ion-tab tabIcon="home" [root]="home" [rootParams]="{parent : tabParent}"></ion-tab>
+    <ion-tab tabIcon="bookmarks" [root]="diary" [rootParams]="{parent : tabParent}"></ion-tab>
+    <ion-tab tabIcon="search" [root]="search" [rootParams]="{parent : tabParent}"></ion-tab>
+    <ion-tab tabIcon="person" [root]="profile" [rootParams]="{parent : tabParent}"></ion-tab>
 </ion-tabs>

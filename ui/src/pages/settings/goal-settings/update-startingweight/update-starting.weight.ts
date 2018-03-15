@@ -26,9 +26,9 @@ export class UpdateStartingWeightComponent{
     user : any;
     constructor(private viewCtrl : ViewController,private navParams : NavParams,private userService : UserService){
         this.user = this.navParams.data.user;
-        let a  = new Date(this.user.goal.starting.date);
+        let a  = new Date(this.user.weight.initial.added);
         this.staritngWeightDate = new Date(a.setTime(a.getTime() + 1 * 86400000)).toISOString();
-        this.startingtWeight = this.user.goal.starting.weight;
+        this.startingtWeight = this.user.weight.initial.weight;
     }
 
     close(){
@@ -37,12 +37,13 @@ export class UpdateStartingWeightComponent{
 
     saveStartingWeight(){
         let a  = new Date(this.staritngWeightDate);
-        this.user.goal.starting.date = new Date(a.setTime(a.getTime() - 1 * 86400000)).toLocaleDateString();
-        this.user.goal.starting.weight = this.startingtWeight;
+        this.user.logs.weight.push({weight : this.user.weight.initial.weight,added : this.user.weight.initial.added})
+        this.user.weight.initial.added = new Date(a.setTime(a.getTime() - 1 * 86400000)).toLocaleDateString();
+        this.user.weight.initial.weight = this.startingtWeight;
         this.userService.updateUserDetail(this.user,this.user._id)
-                            .subscribe(result => {});
+                            .subscribe(result => {this.viewCtrl.dismiss();});
         
         console.log(this.user);                    
-        this.viewCtrl.dismiss();
+        
     }
 }

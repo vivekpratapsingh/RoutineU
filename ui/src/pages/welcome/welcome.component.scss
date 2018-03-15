@@ -1,4 +1,15 @@
 .welcome-page{
+    .card-ios{
+      margin: 12px;
+      border-radius: 2px;
+      width: calc(100% - 24px);
+      padding: 7%;
+      font-size: 3.6rem;
+      font-weight: bold;
+      text-align:center;
+      align-items:center;
+      justify-content:center
+    }
     .toolbar-background {
         background: #fff;
         border-color: transparent;

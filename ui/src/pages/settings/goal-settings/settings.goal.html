@@ -6,22 +6,21 @@
 <ion-content *ngIf='user'>
   <ion-item-group>
     <ion-item>
-      <div class="div-float-left div-font">Staring Weight</div>
-      <div class="div-float-right div-font" (click)="editStartWeight()">{{user.goal.starting.weight}} kg on {{user.goal.starting.date}}</div>
+      <div class="div-float-left div-font">Starting Weight</div>
+      <div class="div-float-right div-font" (click)="editStartWeight()">{{user.weight.initial.weight}} kg on {{this.user.weight.initial.added | date }}</div>
     </ion-item>
     <ion-item>
       <div class="div-float-left div-font">Current Weight</div>
-      <div class="div-float-right div-font" (click)="editWeight()">{{user.weight}}</div>
+      <div class="div-float-right div-font" (click)="editWeight()">{{user.weight.current.weight}}</div>
     </ion-item>
     <ion-item>
       <div class="div-float-left div-font">Goal Weight</div>
-      <div class="div-float-right div-font" (click)="editGoalWeight()">{{user.goal.goal_weight}}</div>
+      <div class="div-float-right div-font" (click)="editGoalWeight()">{{user.logs.goal.weight.length > 0 ? user.logs.goal.weight[this.user.logs.goal.weight.length - 1].weight : 0}}</div>
     </ion-item>
     <ion-item>
-      <!-- <ion-label class="div-float-left div-font">Date Of Birth</ion-label> -->
       <div class="div-float-left div-font">Weekly Goal</div>
-      <!-- <ion-datetime class="div-float-right div-font" displayFormat="MMM DD, YYYY" [readonly]="disableDateTime" [(ngModel)]="user.dateOfBirth"></ion-datetime> -->
-      <div class="div-float-right div-font" (click)="editWeeklyGoal()" *ngIf='user.goal.weekly_goal'>{{user.goal.weekly_goal}}</div>
+      <div class="div-float-right div-font" (click)="editWeeklyGoal()">{{user.logs.goal.weekly_goal.length > 0 ? user.logs.goal.weekly_goal[this.user.logs.goal.weekly_goal.length - 1].goal
+        : 'Select weekly goal'}}</div>
     </ion-item>
     <ion-item>
       <div class="div-float-left div-font">Activity Level</div>
@@ -29,11 +28,10 @@
     </ion-item>
   </ion-item-group>
   <ion-item-group>
-        <ion-item-divider color="light">Nutrition Goals</ion-item-divider>
-        <ion-item (click)="openMacroPage()">
-            <h3>Calorie and Macronutrient Goals</h3>
-            <p>Customize your default or daily goals</p>
-        </ion-item>
+    <ion-item-divider color="light">Nutrition Goals</ion-item-divider>
+    <ion-item (click)="openMacroPage()">
+      <h3>Calorie and Macronutrient Goals</h3>
+      <p>Customize your default or daily goals</p>
+    </ion-item>
   </ion-item-group>
 </ion-content>
-

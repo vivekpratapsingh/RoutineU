@@ -10,15 +10,15 @@
                 <ion-option value="bacon" selected="true">Calories remaining</ion-option>
             </ion-select>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content (click)="openDiary()">
             <ion-row style="text-align:center">
-                <ion-col col-2>2590</ion-col>
+                <ion-col col-2>{{userLog.calories.req}}</ion-col>
                 <ion-col col-1>-</ion-col>
-                <ion-col col-2>200</ion-col>
+                <ion-col col-2>{{userLog.calories.actual}}</ion-col>
                 <ion-col col-1>+</ion-col>
                 <ion-col col-2>0</ion-col>
                 <ion-col col-1>=</ion-col>
-                <ion-col col-3>1390</ion-col>
+                <ion-col col-3>{{userLog.calories.req - userLog.calories.actual}}</ion-col>
             </ion-row>
             <ion-row style="text-align:center">
                 <ion-col col-2>Goal</ion-col>
@@ -39,4 +39,23 @@
             <ion-label>Say something....</ion-label>
         </ion-item>
     </ion-card>
+    <ion-fab right bottom>
+        <button ion-fab color="primary">
+            <ion-icon name="add"></ion-icon>
+        </button>
+        <ion-fab-list side="left">
+            <button ion-fab (click)="addWater()">
+                <ion-icon name="water"></ion-icon>
+            </button>
+            <button ion-fab (click)="addExercise()">
+                <ion-icon name="body"></ion-icon>
+            </button>
+            <button ion-fab (click)="selectMealOption()">
+                <ion-icon name="beer"></ion-icon>
+            </button>
+            <button ion-fab>
+                <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>

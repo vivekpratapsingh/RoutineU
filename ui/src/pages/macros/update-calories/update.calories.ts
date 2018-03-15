@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { UserService } from '../../../services/user.service';
+import { Calculator } from '../../../helpers/calculator';
 
 @Component({
     template: `<ion-list>
@@ -17,19 +18,24 @@ import { UserService } from '../../../services/user.service';
 })
 export class UpdateCalorieComponent {
     user: any;
-    calories: any
+    calories: any = 0;
     constructor(private navParams: NavParams, private viewCtrl: ViewController,
         private userService: UserService) {
         this.user = this.navParams.data.user;
-        this.calories = this.user.goal.calories;
+        if (this.user.logs.goal.calories.length > 0) {
+            this.calories = this.user.logs.goal.calories[this.user.logs.goal.calories.length - 1].calories;
+        }
     }
 
-    close(){
+    close() {
         this.viewCtrl.dismiss();
     }
 
     updateCalories() {
-        this.user.goal.calories = this.calories;
+        this.user.logs.goal.calories.push({ calories: this.calories });
+        let updatedMacros = Calculator.getMacrosFromCalories(this.user.logs.goal.calories[this.user.logs.goal.calories.length - 1].calories,
+            { carbohydrate: this.user.macros_percentage.carbohydrate, protein: this.user.macros_percentage.protein, fat: this.user.macros_percentage.fat });
+        this.user.logs.goal.macros.push({ macros: { carbohydrate: updatedMacros.carbohydrate, protein: updatedMacros.protein, fat: updatedMacros.fat } });
         this.userService.updateUserDetail(this.user, this.user._id)
             .subscribe(result => { });
 

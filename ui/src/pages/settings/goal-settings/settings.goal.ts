@@ -14,11 +14,13 @@ import { MacrosHomeComponent } from '../../macros/macros.home';
 export class GoalSettingsComponent{
 
     user : any;
-
+    goalWeight : any = 0;
+    weeklyGoal : any = "Select weekly goal";
     constructor(private navParams : NavParams,private alertCtrl : AlertController,
         private popoverCtrl:PopoverController,private navCtrl : NavController){
         this.user = this.navParams.data.user;
-        this.user.goal.starting.date = new Date(this.user.goal.starting.date).toLocaleDateString();
+        console.log(this.user);
+        this.user.weight.initial.added = new Date(this.user.weight.initial.added).toLocaleDateString();
         console.log(this.user);
     }
 

@@ -37,6 +37,6 @@ export class MealDetailComponent {
 
     openFoodItem() {
         console.log('open food item clicked');
-        this.navCtrl.push(AddFoodComponent, { foodItem : this.food });
+        this.navCtrl.push(AddFoodComponent, { addedFood : this.food });
     }
 }

@@ -1,0 +1,43 @@
+<ion-header class="water-add-header">
+    <!-- <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+        <ion-icon ios="ios-checkmark" md="md-checkmark" class="nav-icon-right" *ngIf='new' (click)="addWaterLog()"></ion-icon>
+        <ion-icon ios="ios-checkmark" md="md-checkmark" class="nav-icon-right" *ngIf='!new' (click)="updateWaterLog()"></ion-icon>
+    </ion-navbar> -->
+    <ion-toolbar>
+        <ion-navbar>
+            <ion-title>{{title}}</ion-title>
+            <ion-buttons end>
+                <button ion-button icon-only *ngIf='isNew' (click)="addWaterLog()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+                <button ion-button icon-only *ngIf='!isNew' (click)="updateWaterLog()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-row>
+        <ion-col></ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label floating>ml</ion-label>
+                <ion-input type="number" [(ngModel)]="water.amount"></ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+    <ion-row style="justify-content:center">
+        <button ion-button color="light" (click)="addAmount('100')">
+            <ion-icon name="add"></ion-icon> 100 ml
+        </button>
+        <button ion-button color="light" (click)="addAmount('300')">
+            <ion-icon name="add"></ion-icon> 300 ml
+        </button>
+        <button ion-button color="light" (click)="addAmount('3000')">
+            <ion-icon name="add"></ion-icon> 3000 ml
+        </button>
+    </ion-row>
+</ion-content>

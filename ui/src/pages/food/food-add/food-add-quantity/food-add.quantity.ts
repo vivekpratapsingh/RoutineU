@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import { NavParams,ViewController } from 'ionic-angular';
+import { DataService } from '../../../../services/data.serveice';
+import { Calculator } from '../../../../helpers/calculator';
 
 @Component({
     template : `
@@ -15,8 +17,7 @@ import { NavParams,ViewController } from 'ionic-angular';
         <ion-item style="font-size:1.4rem">
             <ion-label fixed>Servings of</ion-label>
             <ion-select [(ngModel)]="servingsize">
-                <ion-option value="1 gm">1 gm</ion-option>
-                <ion-option value="1 oz">1 oz</ion-option>
+                <ion-option *ngFor="let quantity of food.food.quantity" [value]="quantity.serving_size.size">{{quantity.serving_size.size.amount}} {{quantity.serving_size.size.unit}}</ion-option>
             </ion-select>
         </ion-item>
         <button ion-button small  (click)="updateQuatity()" style="float:right">Save</button>
@@ -28,11 +29,15 @@ export class AddFoodQuantityComponent{
     food : any;
     servingsize : any;
     servings : any;
-    constructor(private navParams : NavParams,private viewCtrl : ViewController){
+    constructor(private navParams : NavParams,private viewCtrl : ViewController,
+    private sharedService : DataService){
         this.food = this.navParams.data.food;
-        console.log(this.food);
-        this.servingsize = this.food.servingsize;
-        this.servings = this.food.servings;
+        this.servingsize = this.food.servings.size;
+        // {
+        //     amount : this.food.servings.size.amount,
+        //     unit : this.food.servings.size.unit,
+        // };
+        this.servings = this.food.servings.quantity;
     }
 
     close(){
@@ -40,8 +45,13 @@ export class AddFoodQuantityComponent{
     }
 
     updateQuatity(){
-        this.food.servingsize = this.servingsize;
-        this.food.servings = this.servings;
+        this.food.servings.size = {
+            amount : this.servingsize.amount,
+            unit : this.servingsize.unit
+        };
+        this.food.servings.quantity = this.servings;
+        this.food.nutrients = Calculator.getFoodNutrientByQuantity(this.food.servings.size.amount, this.food.servings.size.unit,
+            this.food.food,this.food.servings.quantity)
         this.viewCtrl.dismiss();
     }
 }

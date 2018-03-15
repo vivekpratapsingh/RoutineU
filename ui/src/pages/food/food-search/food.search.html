@@ -7,17 +7,20 @@
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
+        <ion-item *ngIf="isError">
+            <h2>No Food item found</h2>
+        </ion-item>
         <ion-item *ngFor="let item of items" (click)="addFood(item)">
             <div style="float:left">
                 <ion-row>
                     <h3>{{item.name}}</h3>
                 </ion-row>
                 <ion-row>
-                    <p>{{item.brand}},{{item.servings * item.servingsize}}, {{item.calorie}}</p>
+                    <p>{{item.brand}},{{1 * item.quantity[0].serving_size.size.amount}}{{item.quantity[0].serving_size.size.unit}}, {{item.quantity[0].serving_size.calories}}</p>
                 </ion-row>
             </div>
             <div style="float:right">
-                {{item.calorie}}
+                {{item.quantity[0].serving_size.calories}}
             </div>
         </ion-item>
     </ion-list>

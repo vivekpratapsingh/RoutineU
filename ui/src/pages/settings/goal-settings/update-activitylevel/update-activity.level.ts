@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController,NavParams} from 'ionic-angular';
 import { UserService } from '../../../../services/user.service';
+import * as CalorieUpdater from '../goal-settings.common';
 
 @Component({
     template : `<ion-list>
@@ -34,10 +35,11 @@ export class UpdateActivityLevelComponent{
 
     saveActivityLevel(){
         this.user.activity_level = this.activityLevel;
+        this.user = CalorieUpdater.updateUserCalories(this.user);
         this.userService.updateUserDetail(this.user,this.user._id)
-                            .subscribe(result => {});
+                            .subscribe(result => {this.viewCtrl.dismiss();});
         
         console.log(this.user);                    
-        this.viewCtrl.dismiss();
+        
     }
 }

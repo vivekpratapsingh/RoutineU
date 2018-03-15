@@ -26,26 +26,27 @@ export class LoginComponent {
                 console.log(result);
                 localStorage.setItem('id', data.userID.id);
                 console.log('User has been logged in');
-                if(this.checkUserDetials(result)){
-                    this.router.navigate(['/home']);
+                this.dataService.sharedData = result;
+                if(result.infoRequired){
+                    console.log(true);
+                    this.router.navigate(['/welcome',data.userID.id]);
                 }
                 else{
-                    this.dataService.sharedData = result;
-                    this.router.navigate(['/welcome']);
+                    this.router.navigate(['/home',data.userID.id]);
                 }
                 
             });
         });
     }
 
-    checkUserDetials(user) : boolean{
-        if(user.gender !="" && user.birthday !='' && user.location.city!='' && user.location.country !='' && 
-            user.height != 0 && user.weight != 0 && user.goal.starting.weight !=0 && user.goal.goal_weight != 0){
-                return true;
-            }
-        else{
-            return false;
-        }    
-    }
+    // checkUserDetials(user) : boolean{
+    //     if(user.gender !="" && user.birthday !='' && user.location.city!='' && user.location.country !='' && 
+    //         user.height != 0 && user.logs.weight != 0 && user.goal.starting.weight !=0 && user.goal.goal_weight != 0){
+    //             return true;
+    //         }
+    //     else{
+    //         return false;
+    //     }    
+    // }
 
 }

@@ -1,4 +1,4 @@
-<ion-slides pager class="welcome-page" *ngIf='user'>
+<ion-slides pager class="welcome-page" *ngIf='localUser'>
     <ion-slide>
         <ion-toolbar>
             <ion-buttons end>
@@ -8,18 +8,18 @@
         <h2>Basic Details</h2>
         <ion-item>
             <ion-label>Gender</ion-label>
-            <ion-select [(ngModel)]="user.gender">
+            <ion-select [(ngModel)]="localUser.gender">
                 <ion-option value="male">Male</ion-option>
                 <ion-option value="female">Female</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label>Birthday</ion-label>
+            <ion-label>birthday</ion-label>
             <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="birthday"></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label>City</ion-label>
-            <ion-select [(ngModel)]="user.location.city">
+            <ion-select [(ngModel)]="localUser.location.city">
                 <ion-option value="Gurgaon">Gurgaon</ion-option>
                 <ion-option value="Delhi">Delhi</ion-option>
                 <ion-option value="Noida">Delhi</ion-option>
@@ -27,7 +27,7 @@
         </ion-item>
         <ion-item>
             <ion-label>Country</ion-label>
-            <ion-select [(ngModel)]="user.location.country">
+            <ion-select [(ngModel)]="localUser.location.country">
                 <ion-option value="India">India</ion-option>
                 <ion-option value="Australia">Australia</ion-option>
                 <ion-option value="USA">USA</ion-option>
@@ -48,19 +48,19 @@
         <h2>Goal Details</h2>
         <ion-item>
             <ion-label>Height(cm)</ion-label>
-            <ion-select [(ngModel)]="user.height">
+            <ion-select [(ngModel)]="localUser.height">
                 <ion-option *ngFor="let value of height_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label>Weight(kg)</ion-label>
-            <ion-select [(ngModel)]="user.weight">
+            <ion-select [(ngModel)]="localUser.weight.current.weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label>Starting Weight(kg)</ion-label>
-            <ion-select [(ngModel)]="user.goal.starting.weight">
+            <ion-select [(ngModel)]="localUser.weight.initial.weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
@@ -70,12 +70,44 @@
         </ion-item>
         <ion-item>
             <ion-label>Goal Weight</ion-label>
-            <ion-select [(ngModel)]="user.goal.goal_weight">
+            <ion-select [(ngModel)]="goal_weight">
                 <ion-option *ngFor="let value of weight_numbers" [value]="value">{{value}}</ion-option>
             </ion-select>
         </ion-item>
         <button ion-button large clear icon-end color="primary" (click)="updateUserDetails()">
-            Submit
+            Continue
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+    </ion-slide>
+    <ion-slide>
+        <ion-item>
+            <ion-label>Activity Level</ion-label>
+            <ion-select [(ngModel)]="localUser.activity_level">
+                <ion-option *ngFor="let value of activity_levels" [value]="value.level">{{value.level}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Weekly Goal</ion-label>
+            <ion-select [(ngModel)]="weekly_goal">
+                <ion-option *ngFor="let value of weekly_goals" [value]="value.goal">{{value.goal}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <button ion-button large (click)="calculateCalorie()">
+            Calculate Calorie Requirement
+        </button>
+        <br />
+        <ion-card *ngIf="bmi">
+            <h3>Your BMI</h3>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{bmi}}</h2>
+        </ion-card>
+        <ion-card *ngIf="calorieGoal">
+            <h3>Maintaince Calorie</h3>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{calorieGoal.bmr}}</h2>
+            <h3>Calorie Requirement({{weekly_goal}})</h3>
+            <h2 style="font-size : 3.6rem;font-weight:bold">{{calorieGoal.goal}}</h2>
+        </ion-card>
+        <button ion-button large (click)="saveUserDetails()">
+            Done
         </button>
     </ion-slide>
 </ion-slides>
